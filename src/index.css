@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.bg-login {
+  background-image: url('./assets/Wind.jpg');
+  background-size: cover;
+  position: relative;
+}
+.background {
+  background-image: url('./assets/wind-black.jpg');
+  background-size: cover;
+}
+.bg-login::before {
+  width: 100%;
+  height: 500px;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+  content: '';
+  position: absolute;
+  z-index: 1;
+}
+.bg-signup {
+  background-image: url('./assets/logint.jpg');
+  background-size: cover;
+  position: relative;
+}
+
+.bg-signup::before {
+  width: 100%;
+  height: 650px;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+  content: '';
+  position: absolute;
+  z-index: 1;
+}
+
+.p {
+  color: rgb(179, 169, 169);
+}
