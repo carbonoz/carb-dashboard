@@ -1,7 +1,7 @@
 import { baseAPI } from '../api'
 
 export interface topicResponse {
-  message: 'notifications'
+  message: string
   data: topicInt
 }
 

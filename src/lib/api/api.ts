@@ -7,7 +7,7 @@ export const baseAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers: Headers): Headers => {
-      const localToken = getFromLocal('token')
+      const localToken = getFromLocal<string>('token')
 
       if (localToken) {
         headers.set('authorization', `Bearer ${localToken}`)
@@ -15,6 +15,15 @@ export const baseAPI = createApi({
       return headers
     },
   }),
-  tagTypes: ['Energy', 'Box', 'Topic'] as const,
+  tagTypes: [
+    'Energy',
+    'Box',
+    'Topic',
+    'User',
+    'Steps',
+    'Assets',
+    'Info',
+    'File',
+  ] as const,
   endpoints: () => ({}),
 })

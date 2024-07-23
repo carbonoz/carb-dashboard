@@ -3,7 +3,7 @@ interface ValidationRule {
   message: string
 }
 
-const requiredField = (message: string): ValidationRule[] => [
+const requiredField = (message: string): Array<ValidationRule> => [
   { required: true, message: `${message} is required` },
 ]
 

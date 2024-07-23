@@ -10,12 +10,12 @@ import {
   LoginDTO,
   useLoginMutation,
 } from '../../lib/api/Auth/authEndpoints'
-import CustomButton from '../button/button'
+import CustomButton from '../common/button/button'
 import CustomInput from '../common/input/customInput'
 
 const Login: FC = (): ReactElement => {
   const [form] = Form.useForm()
-  const [login, { isLoading, isError }] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation()
 
   const navigate = useNavigate()
 
@@ -31,7 +31,6 @@ const Login: FC = (): ReactElement => {
       request: login,
       ...values,
       onSuccess: onSuccess,
-      notify: true,
     })
   }
   return (
@@ -78,7 +77,7 @@ const Login: FC = (): ReactElement => {
               className=' w-[100%] h-[60px]'
               form='login-form'
               htmlType='submit'
-              disabled={isError || isLoading}
+              disabled={isLoading}
             >
               {isLoading ? 'LOADING....' : 'LOGIN'}
             </CustomButton>
@@ -86,7 +85,7 @@ const Login: FC = (): ReactElement => {
           <div className='flex items-center'>
             <Link
               to='/signup'
-              className=' text-md text-blue hover:underline dark:text-blue-500'
+              className='text-md text-black font-bold hover:text-black'
             >
               Sign up
             </Link>

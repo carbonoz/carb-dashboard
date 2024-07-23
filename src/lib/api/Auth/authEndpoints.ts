@@ -1,8 +1,13 @@
+import { ERoles } from '../../../config/constant'
 import { baseAPI } from '../api'
 
 export interface LoginDTO {
   email: string
   password: string
+}
+
+export interface SignupDTO extends LoginDTO {
+  role: ERoles
 }
 
 export interface AuthResponse {
@@ -30,7 +35,14 @@ const authApi = baseAPI.injectEndpoints({
         body: DTO,
       }),
     }),
+    signup: builder.mutation<AuthResponse, SignupDTO>({
+      query: (DTO) => ({
+        url: `/auth/sign-up/`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useSignupMutation } = authApi
