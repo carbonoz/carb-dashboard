@@ -35,13 +35,13 @@ const Login: FC = (): ReactElement => {
   }
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background'>
-      <div className='w-[30%] h-[650px] flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
+      <div className='xl:w-[30%] lg:w-[40%] xl:h-[650px] lg:h-[600px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
         <h2 className='ml-7 -mt-[60px] text-white  font-semibold text-lg'>
           Welcome back to
         </h2>
         <h1 className='ml-6 text-white  text-[2rem]   font-bold'>Carbonoz</h1>
       </div>
-      <div className='p-4 w-[30%] h-[650px] bg-white    shadow-md sm:p-6 lg:p-8'>
+      <div className='p-4 xl:w-[30%] w-[80%] lg:w-[40%]  h-fit xl:h-[650px] lg:h-[600px] bg-white    shadow-md sm:p-6 lg:p-8'>
         <Form
           className='space-y-12'
           name='login-form'

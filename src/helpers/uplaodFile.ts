@@ -1,5 +1,5 @@
 type UploadFileParams = {
-  files?: File[]
+  files: File[]
   setUploadLoading?: (loading: boolean) => void
   setUploadSuccess?: (success: boolean) => void
   setUploadFailure?: (failure: boolean) => void
@@ -12,38 +12,48 @@ const uploadFile = ({
   setUploadSuccess = () => null,
   setUploadFailure = () => null,
   setImgURL = () => null,
-}: UploadFileParams): void => {
-  const CLAUD_NAME = import.meta.env.NEXT_PUBLIC_CLAUDINARY_CLAUD_NAME
-  const PRESET = import.meta.env.NEXT_PUBLIC_CLAUDINARY_PRESET
+}: UploadFileParams): Promise<string[]> => {
+  const CLAUD_NAME = import.meta.env.VITE_CLAUDINARY_CLAUD_NAME
+  const PRESET = import.meta.env.VITE_CLAUDINARY_PRESET
 
-  if (!CLAUD_NAME || !PRESET) {
-    console.error('Environment variables for Cloudinary are not set.')
-    return
-  }
+  return new Promise((resolve, reject) => {
+    if (!CLAUD_NAME || !PRESET) {
+      console.error('Environment variables for Cloudinary are not set.')
+      reject('Environment variables not set')
+      return
+    }
+    setUploadLoading(true)
+    const uploadPromises = files.map(async (file) => {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', PRESET)
 
-  setUploadLoading(true)
-
-  const formData = new FormData()
-  formData.append('file', files[0])
-  formData.append('upload_preset', PRESET)
-
-  fetch(`https://api.cloudinary.com/v1_1/${CLAUD_NAME}/image/upload`, {
-    method: 'POST',
-    body: formData,
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLAUD_NAME}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      )
+      const res_1 = await res.json()
+      return res_1.secure_url
+    })
+    Promise.all(uploadPromises)
+      .then((urls) => {
+        setUploadLoading(false)
+        setUploadFailure(false)
+        setUploadSuccess(true)
+        setImgURL(urls[0])
+        resolve(urls)
+      })
+      .catch((error) => {
+        setUploadLoading(false)
+        setUploadFailure(true)
+        setUploadSuccess(false)
+        setImgURL(null)
+        reject(error)
+      })
   })
-    .then((res) => res.json())
-    .then((res) => {
-      setUploadLoading(false)
-      setUploadFailure(false)
-      setUploadSuccess(true)
-      setImgURL(res?.secure_url)
-    })
-    .catch(() => {
-      setUploadLoading(false)
-      setUploadFailure(true)
-      setUploadSuccess(false)
-      setImgURL(null)
-    })
 }
 
 export default uploadFile

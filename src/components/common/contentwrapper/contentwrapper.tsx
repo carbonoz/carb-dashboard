@@ -8,8 +8,10 @@ interface WrapperProps {
 const ContentWrapper: FC<WrapperProps> = ({ children }): ReactElement => {
   const { Content } = Layout
   return (
-    <Content className=' h-[100%] w-full  bg-white  overflow-y-auto'>
-      <div className='w-full h-[100%]  mt-[4px] p-5 '> {children} </div>
+    <Content className=' h-[100%] w-[100%]  bg-white '>
+      <div className='w-full h-[100%]  mt-[4px] p-5 overflow-y-auto scroll'>
+        {children}
+      </div>
     </Content>
   )
 }

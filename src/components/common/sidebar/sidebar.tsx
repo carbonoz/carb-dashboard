@@ -3,12 +3,18 @@ import { CiSettings } from 'react-icons/ci'
 import { FiUser } from 'react-icons/fi'
 import { GiWindTurbine } from 'react-icons/gi'
 import { IoHomeOutline } from 'react-icons/io5'
+import { MdDeviceHub } from 'react-icons/md'
 import { useMatch, useNavigate } from 'react-router-dom'
+import { boxInterface } from '../../../lib/api/box/boxEndPoints'
 
 interface SidebarItemProps {
   icon: ReactElement
   text: string
   url: string
+}
+
+interface SideBarProps {
+  boxesData?: Array<boxInterface> | undefined
 }
 
 const SidebarItem: FC<SidebarItemProps> = ({
@@ -44,30 +50,41 @@ const SidebarItem: FC<SidebarItemProps> = ({
   )
 }
 
-const Sidebar: FC = (): ReactElement => {
+const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
   return (
     <section className='w-[300px] h-[100%] flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100'>
       <div className='flex flex-row items-center gap-5 mb-8'>
         <GiWindTurbine size={50} className='text-[#C1CF16]' />
         <h1 className='text-2xl  text-[#C1CF16]'>CARBONOZ</h1>
       </div>
-
       <div className='mt-0 w-full'>
-        <SidebarItem
-          icon={<IoHomeOutline size={30} />}
-          text='Dashboard'
-          url='/ds/'
-        />
-        <SidebarItem
-          icon={<CiSettings size={30} />}
-          text='Settings'
-          url='/ds/settings'
-        />
-        <SidebarItem
-          icon={<FiUser size={30} />}
-          text='Profile'
-          url='/ds/profile'
-        />
+        {!boxesData || boxesData.length === 0 ? (
+          <>
+            <SidebarItem
+              icon={<MdDeviceHub size={30} />}
+              text='Configurations'
+              url='/ds/devices'
+            />
+          </>
+        ) : (
+          <>
+            <SidebarItem
+              icon={<IoHomeOutline size={30} />}
+              text='Dashboard'
+              url='/ds/'
+            />
+            <SidebarItem
+              icon={<CiSettings size={30} />}
+              text='Settings'
+              url='/ds/settings'
+            />
+            <SidebarItem
+              icon={<FiUser size={30} />}
+              text='Profile'
+              url='/ds/profile'
+            />
+          </>
+        )}
       </div>
     </section>
   )
