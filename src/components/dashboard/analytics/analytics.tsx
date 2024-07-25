@@ -13,15 +13,23 @@ const Analytics: FC = (): ReactElement => {
 
   return (
     <section className=''>
-      <div className='ml-3'>
-        <h1 className=' text-3xl  mb-10 text-[#C1CF16] font-bold'>Analytics</h1>
+      <div className=''>
+        <h1 className=' text-xl  mb-10 text-[#C1CF16] font-bold'>Analytics</h1>
         <section className='flex flex-row items-center gap-5 mb-10'>
           <AnalyticsCard />
           <AnalyticsCard />
           <AnalyticsCard />
         </section>
       </div>
-      <EnergyTable data={data?.data} isFetching={isFetching} />
+      <div className='mt-8 border border-gray-300 rounded-2xl'>
+        <h1 className='  text-xl  text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
+          Energy information
+        </h1>
+        <div className='border-t-[1px] border-gray-300 ' />
+        <div className='p-5'>
+          <EnergyTable data={data?.data} isFetching={isFetching} />
+        </div>
+      </div>
     </section>
   )
 }

@@ -13,7 +13,7 @@ const { Column } = Table
 const AssetTable: FC<props> = ({ data, isFetching }): ReactElement => {
   return (
     <Table
-      className='data_table w-[1030px]'
+      className='data_table w-[100%]'
       dataSource={data}
       rowKey={(record) => {
         return record?.id
@@ -27,7 +27,7 @@ const AssetTable: FC<props> = ({ data, isFetching }): ReactElement => {
       <Column
         title='#'
         key='#'
-        render={(text, record, index: number) => (
+        render={(_, __, index: number) => (
           <span className='text-gray-500 font-bold'> {index + 1}. </span>
         )}
       />
@@ -35,56 +35,56 @@ const AssetTable: FC<props> = ({ data, isFetching }): ReactElement => {
         title='Owner'
         key='assetOwner'
         render={(record: assetInt) => (
-          <span className='font-bold  text-blue-500'>{record?.assetOwner}</span>
+          <span className=' text-black'>{record?.assetOwner}</span>
         )}
       />
       <Column
         title='Name'
         key='assetName'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.assetName}</span>
+          <span className='text-black'>{record?.assetName}</span>
         )}
       />
       <Column
         title='Fuel type'
         key='fuelType'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.fuelType}</span>
+          <span className='text-black'>{record?.fuelType}</span>
         )}
       />
       <Column
         title='Country'
         key='country'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.country}</span>
+          <span className='text-black'>{record?.country}</span>
         )}
       />
       <Column
         title='Address'
         key='address'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.address}</span>
+          <span className='text-black'>{record?.address}</span>
         )}
       />
       <Column
         title='Latitude'
         key='latitude'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.latitude}</span>
+          <span className='text-black'>{record?.latitude}</span>
         )}
       />
       <Column
         title='Longitude'
         key='longitude'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.longitude}</span>
+          <span className='text-black'>{record?.longitude}</span>
         )}
       />
       <Column
         title='Capacity'
         key='capacity'
         render={(record: assetInt) => (
-          <span className='font-bold text-blue-500'>{record?.capacity}</span>
+          <span className='text-black'>{record?.capacity}</span>
         )}
       />
     </Table>

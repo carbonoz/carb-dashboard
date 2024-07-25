@@ -192,20 +192,24 @@ const UserSteps: FC = (): ReactElement | boolean => {
   }
 
   return (
-    <>
+    <div className='flex flex-col overflow-y-hidden h-[100vh]'>
       <NavBar data={data?.data} additional={true} />
       {!isFetching ? (
         <div className='h-[100%]'>
-          <section className='flex justify-center h-[100%]  '>
+          <section className='flex justify-center h-[100%] '>
             <div className='w-[60%] mt-10 h-[100%]'>
               <h1 className='text-lg font-bold text-[#c1cf16]'>
                 {stepHeaders[current] || 'Additional Information'}
               </h1>
-              <Steps current={current} items={items} className='mt-10' />
-              <div className='mt-[50px]  h-[100%]'>
+              <Steps
+                current={current}
+                items={items}
+                className='mt-10  border  border-[#c1cf16] p-5  rounded-2xl'
+              />
+              <div className='mt-[50px]  h-[500px]  overflow-y-hidden'>
                 {steps[current].content}
               </div>
-              <div className='mt-[24px] flex flex-row gap-5 w-full'>
+              <div className=' mt-[25px] flex flex-row gap-5 w-full'>
                 {current < steps.length - 1 && (
                   <CustomButton
                     type='primary'
@@ -255,7 +259,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
       ) : (
         <GeneralContentLoader />
       )}
-    </>
+    </div>
   )
 }
 

@@ -13,7 +13,9 @@ const RedexForm: FC<props> = ({ className, file }): ReactElement => {
   return (
     <Worker workerUrl={PdfJsWorker}>
       <div
-        className={` ${className ? className : 'h-[550px] w-[900px] '} mx-auto`}
+        className={` ${
+          className ? className : 'h-[550px] w-[900px] '
+        } mx-auto scroll`}
       >
         <Viewer fileUrl={file ? file : pdf} plugins={[]} />
       </div>
