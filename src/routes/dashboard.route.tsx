@@ -15,6 +15,7 @@ import { useGetBoxesQuery } from '../lib/api/box/boxEndPoints'
 import { useGetStepsQuery } from '../lib/api/steps/stepsEndpoints'
 import { useGetAdditionalInfoQuery } from '../lib/api/user/userEndPoints'
 import Private from './private'
+// import EnergyChart from '../components/dashboard/charts/energyChart'
 
 export const DashboardRoutes: FC = (): ReactElement => {
   const navigate = useNavigate()
@@ -46,13 +47,16 @@ export const DashboardRoutes: FC = (): ReactElement => {
 
   useEffect(() => {
     if (
-      !boxesData ||
-      !Array.isArray(boxesData.data) ||
-      boxesData.data.length === 0
+      stepsData?.data &&
+      stepsData.data.length > 0 &&
+      stepsData.data[0].status === true &&
+      (!boxesData ||
+        !Array.isArray(boxesData.data) ||
+        boxesData.data.length === 0)
     ) {
       navigate('/ds/devices')
     }
-  }, [boxesData])
+  }, [stepsData, boxesData])
 
   useEffect(() => {
     refetch()
@@ -84,7 +88,11 @@ export const DashboardRoutes: FC = (): ReactElement => {
                   />
                 }
               />
-              <Route path='/devices' element={<BoxInformation />} />
+              <Route
+                path='/devices'
+                element={<BoxInformation boxesData={boxesData?.data} />}
+              />
+              {/* <Route path='/charts' element={<EnergyChart />} /> */}
               <Route path='*' element={<NotFound />} />
             </Routes>
           </ContentWrapper>

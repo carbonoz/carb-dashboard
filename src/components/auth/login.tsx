@@ -35,22 +35,20 @@ const Login: FC = (): ReactElement => {
   }
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background'>
-      <div className='xl:w-[30%] lg:w-[40%] xl:h-[650px] lg:h-[600px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
+      <div className='xl:w-[40%] 2xl:w-[32%] lg:w-[40%] 2xl:h-[650px] xl:h-[600px] lg:h-[550px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
         <h2 className='ml-7 -mt-[60px] text-white  font-semibold text-lg'>
           Welcome back to
         </h2>
         <h1 className='ml-6 text-white  text-[2rem]   font-bold'>Carbonoz</h1>
       </div>
-      <div className='p-4 xl:w-[30%] w-[80%] lg:w-[40%]  h-fit xl:h-[650px] lg:h-[600px] bg-white    shadow-md sm:p-6 lg:p-8'>
+      <div className='p-4 xl:w-[40%] 2xl:w-[32%]  w-[80%] lg:w-[40%]  h-fit 2xl:h-[650px] xl:h-[600px] lg:h-[550px] bg-white    shadow-md sm:p-6 lg:p-8'>
         <Form
           className='space-y-12'
           name='login-form'
           form={form}
           onFinish={onFinish}
         >
-          <h5 className='text-xl font-medium text-center text-black'>
-            Create a account
-          </h5>
+          <h5 className='text-xl font-bold text-center text-black'>Log in</h5>
           <Row className='w-[100%]'>
             <Col className='gutter-row mt-2 w-full'>
               <CustomInput
@@ -85,7 +83,7 @@ const Login: FC = (): ReactElement => {
           <div className='flex items-center'>
             <Link
               to='/signup'
-              className='text-md text-black font-bold hover:text-black'
+              className='text-md text-blue-300 font-bold hover:text-blue-300'
             >
               Sign up
             </Link>

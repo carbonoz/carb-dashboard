@@ -8,6 +8,7 @@ interface props {
   isFetching: boolean
 }
 
+
 const { Column } = Table
 
 const AssetTable: FC<props> = ({ data, isFetching }): ReactElement => {

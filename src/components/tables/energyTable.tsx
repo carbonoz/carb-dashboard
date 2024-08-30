@@ -1,35 +1,51 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Table } from 'antd'
+import { Table, TablePaginationConfig } from 'antd'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { FC, ReactElement } from 'react'
 import { energyInt } from '../../lib/api/Analytics/analyticsEndpoints'
 
-interface props {
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
+interface Props {
   data: Array<energyInt> | undefined
   isFetching: boolean
+  type?: 'monthly' | 'daily' | 'yearly' | 'decade'
+  pagination?: TablePaginationConfig
 }
 
 const { Column } = Table
 
-const EnergyTable: FC<props> = ({ data, isFetching }): ReactElement => {
-  const sortedData: Array<energyInt> | undefined = data
-    ?.slice()
-    .sort((a, b) => {
-      return (
-        dayjs(b.date, 'DD/MM/YYYY').valueOf() -
-        dayjs(a.date, 'DD/MM/YYYY').valueOf()
-      )
-    })
+const EnergyTable: FC<Props> = ({
+  data,
+  isFetching,
+  type = 'daily',
+  pagination,
+}): ReactElement => {
+  const timeZone = 'Indian/Mauritius'
+  let dateFormat
+  switch (type) {
+    case 'monthly':
+      dateFormat = 'DD/MM/YYYY'
+      break
+    case 'yearly':
+      dateFormat = 'MMMM YYYY'
+      break
+    case 'decade':
+      dateFormat = 'YYYY'
+      break
+    default:
+      dateFormat = 'MMMM DD'
+  }
 
   return (
     <Table
       className='data_table'
-      dataSource={sortedData}
-      rowKey={(record) => {
-        return record?.id
-      }}
+      dataSource={data}
+      rowKey={(record) => record?.id}
       rowClassName='shadow'
-      pagination={false}
+      pagination={pagination ? pagination : false}
       loading={isFetching}
       bordered={false}
       scroll={{ x: 0 }}
@@ -39,23 +55,62 @@ const EnergyTable: FC<props> = ({ data, isFetching }): ReactElement => {
         key='date'
         render={(record: energyInt) => (
           <span className='text-gray-500 font-bold'>
-            {' '}
-            {dayjs(record.date, 'DD/MM/YYYY').format('MMMM DD')}{' '}
+            {dayjs(record?.date).tz(timeZone).format(dateFormat)}
           </span>
         )}
       />
       <Column
-        title='loadPower'
+        title='Load Power'
         key='loadPower'
         render={(record: energyInt) => (
-          <span className='font-bold  text-blue-500'>{record?.loadPower}</span>
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record.loadPower).toFixed(1)} Kwh
+          </span>
         )}
       />
       <Column
-        title='pvPower'
+        title='Pv Power'
         key='pvPower'
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>{record?.pvPower}</span>
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record?.pvPower).toFixed(1)} Kwh
+          </span>
+        )}
+      />
+      <Column
+        title='Grid In'
+        key='gridIn'
+        render={(record: energyInt) => (
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record?.gridIn).toFixed(1)} Kwh
+          </span>
+        )}
+      />
+      <Column
+        title='Grid Out'
+        key='gridOut'
+        render={(record: energyInt) => (
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record?.gridOut).toFixed(1)} Kwh
+          </span>
+        )}
+      />
+      <Column
+        title='Battery Charged'
+        key='batteryCharged'
+        render={(record: energyInt) => (
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record?.batteryCharged).toFixed(1)} Kwh
+          </span>
+        )}
+      />
+      <Column
+        title='Battery Discharged'
+        key='batteryDischarged'
+        render={(record: energyInt) => (
+          <span className='font-bold text-blue-500'>
+            {parseFloat(record?.batteryDischarged).toFixed(1)} Kwh
+          </span>
         )}
       />
     </Table>
