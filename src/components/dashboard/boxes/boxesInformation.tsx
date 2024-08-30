@@ -1,20 +1,35 @@
-import { Form } from 'antd'
-import { FC, Fragment, useState } from 'react'
+import { Col, Form, Row } from 'antd'
+import { FC, Fragment, useEffect, useState } from 'react'
 import Dropzone, { Accept } from 'react-dropzone'
 import { useNavigate } from 'react-router-dom'
 import handleAPIRequests from '../../../helpers/handleApiRequest'
+import { setToLocal } from '../../../helpers/handleStorage'
 import requiredField from '../../../helpers/requiredField'
 import uploadFile from '../../../helpers/uplaodFile'
-import { useRegisterBoxesMutation } from '../../../lib/api/box/boxEndPoints'
+import { AuthResponse } from '../../../lib/api/Auth/authEndpoints'
+import {
+  boxInterface,
+  useRegisterBoxesMutation,
+} from '../../../lib/api/box/boxEndPoints'
 import CustomButton from '../../common/button/button'
 import CustomImage from '../../common/image/customImage'
 import CustomInput from '../../common/input/customInput'
+import Notify from '../../common/notification/notification'
 
 interface onFinishProps {
   serialNumber: string
+  mqttIpAddress: string
+  mqttUsername: string
+  mqttPassword: string
+  mqttPort: string
+  confirmPassword: string
 }
 
-const BoxInformation: FC = () => {
+interface BoxInformationInterfaceProps {
+  boxesData: Array<boxInterface> | undefined
+}
+
+const BoxInformation: FC<BoxInformationInterfaceProps> = ({ boxesData }) => {
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const [isDragging, setIsDragging] = useState<boolean>(false)
@@ -41,16 +56,40 @@ const BoxInformation: FC = () => {
     'image/*': [],
   }
 
-  const onSuccess = () => {
+  const onSuccess = (res: AuthResponse) => {
+    setToLocal('token', res.data.token)
     navigate('/ds/profile')
   }
 
+  useEffect(() => {
+    if (boxesData) {
+      if (boxesData.length) {
+        navigate('/ds')
+      }
+    }
+    //eslint-disable-next-line
+  }, [boxesData])
+
   const onFinish = async (values: onFinishProps) => {
+    if (values.confirmPassword !== values.mqttPassword) {
+      Notify({
+        message: 'Error',
+        description: 'Password do not match',
+        type: 'error',
+      })
+    }
     if (files.length === 0) return
     setLoading(true)
     setUploadSuccess(false)
     setUploadFailure(false)
 
+    const obj = {
+      serialNumber: values.serialNumber,
+      mqttIpAddress: values.mqttIpAddress,
+      mqttUsername: values.mqttUsername,
+      mqttPassword: values.mqttPassword,
+      mqttPort: parseInt(values.mqttPort),
+    }
     try {
       const urls = await uploadFile({
         files: files,
@@ -66,7 +105,7 @@ const BoxInformation: FC = () => {
         setUploadSuccess(true)
         setUploadFailure(false)
         const data = {
-          ...values,
+          ...obj,
           photoProof: urls,
         }
         handleAPIRequests({
@@ -93,13 +132,60 @@ const BoxInformation: FC = () => {
       </h1>
       <div className='mb-4'>
         <Form form={form} name='box-info' onFinish={onFinish}>
-          <CustomInput
-            name='serialNumber'
-            placeholder='Serial number'
-            label='Serial number'
-            rules={requiredField('Serial number ')}
-          />
-          <div className='mb-3 font-bold'>
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                name='serialNumber'
+                placeholder='Serial number'
+                label='Serial number'
+                rules={requiredField('Serial number ')}
+              />
+            </Col>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                name='mqttIpAddress'
+                placeholder='Mqtt broker Ip address'
+                label='Mqtt broker address'
+                rules={requiredField('Mqtt broker address ')}
+              />
+            </Col>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                name='mqttPort'
+                placeholder='Mqtt broker Ip port'
+                label='Mqtt broker port'
+                rules={requiredField('Mqtt broker Ip port ')}
+              />
+            </Col>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                name='mqttUsername'
+                placeholder='Mqtt broker username'
+                label='Mqtt broker username'
+                rules={requiredField('Mqtt username ')}
+              />
+            </Col>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                name='mqttPassword'
+                placeholder='Mqtt broker password'
+                label='Mqtt broker password'
+                inputType='password'
+                rules={requiredField('Mqtt password ')}
+              />
+            </Col>
+            <Col className='gutter-row mt-2 ' span={12}>
+              <CustomInput
+                placeholder='Confirm password'
+                label='Confirm password'
+                inputType='password'
+                name='confirmPassword'
+                rules={requiredField('Confirm password')}
+              />
+            </Col>
+          </Row>
+
+          <div className='mb-3 mt-3 font-bold'>
             You can upload up to 3 Images of your inverter
           </div>
           <Dropzone

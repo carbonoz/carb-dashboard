@@ -6,6 +6,7 @@ import { IoHomeOutline } from 'react-icons/io5'
 import { MdDeviceHub } from 'react-icons/md'
 import { useMatch, useNavigate } from 'react-router-dom'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
+// import { FaChartPie } from 'react-icons/fa'
 
 interface SidebarItemProps {
   icon: ReactElement
@@ -83,6 +84,11 @@ const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
               text='Profile'
               url='/ds/profile'
             />
+            {/* <SidebarItem
+              icon={<FaChartPie size={30} />}
+              text='Charts'
+              url='/ds/charts'
+            /> */}
           </>
         )}
       </div>

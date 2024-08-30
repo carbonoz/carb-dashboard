@@ -197,32 +197,34 @@ const UserSteps: FC = (): ReactElement | boolean => {
       {!isFetching ? (
         <div className='h-[100%]'>
           <section className='flex justify-center h-[100%] '>
-            <div className='w-[60%] mt-10 h-[100%]'>
+            <div className='2xl:w-[60%] xl:w-[80%] lg:w-[88%] w-[80%] mt-10 h-[100%]'>
               <h1 className='text-lg font-bold text-[#c1cf16]'>
                 {stepHeaders[current] || 'Additional Information'}
               </h1>
               <Steps
                 current={current}
                 items={items}
-                className='mt-10  border  border-[#c1cf16] p-5  rounded-2xl'
+                className='mt-10  w-[100%] '
               />
               <div className='mt-[50px]  h-[500px]  overflow-y-hidden'>
                 {steps[current].content}
               </div>
               <div className=' mt-[25px] flex flex-row gap-5 w-full'>
-                {current < steps.length - 1 && (
-                  <CustomButton
-                    type='primary'
-                    onClick={checkFile}
-                    className='w-[30%] h-[60px]'
-                    disabled={
-                      (current === 0 && !userInfoData) ||
-                      (current === 1 && (!assetData || assetData.length === 0))
-                    }
-                  >
-                    Next
-                  </CustomButton>
-                )}
+                {current === 0 && !userInfoData
+                  ? // Hide the "Next" button if current is 0 and no userInfoData
+                    null
+                  : current === 1 && (!assetData || assetData.length === 0)
+                  ? // Hide the "Next" button if current is 1 and no assetData or assetData is empty
+                    null
+                  : current < steps.length - 1 && (
+                      <CustomButton
+                        type='primary'
+                        onClick={checkFile}
+                        className='w-[30%] h-[60px]'
+                      >
+                        Next
+                      </CustomButton>
+                    )}
                 {current > 0 && (
                   <CustomButton
                     onClick={prev}

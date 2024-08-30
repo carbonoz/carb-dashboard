@@ -10,6 +10,7 @@ export interface boxInterface {
   id: string
   userId: string
   serialNumber: string
+  mqttIpAddress: string
   photoProof: Array<string>
   user: AuthInt
 }
@@ -17,6 +18,10 @@ export interface boxInterface {
 export interface RegisterBoxDTO {
   serialNumber: string
   photoProof: Array<string>
+  mqttIpAddress: string
+  mqttUsername: string
+  mqttPassword: string
+  mqttPort: string
 }
 
 const boxEndpoints = baseAPI.injectEndpoints({

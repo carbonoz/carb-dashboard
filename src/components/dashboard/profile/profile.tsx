@@ -2,6 +2,7 @@ import { FC, ReactElement, useEffect, useState } from 'react'
 import {
   AdditionalInfoInt,
   useGetAssetsQuery,
+  useGetUserPortsQuery,
 } from '../../../lib/api/user/userEndPoints'
 import AssetTable from '../../tables/assetTable'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
@@ -19,8 +20,12 @@ const Profile: FC<props> = ({
   loading,
   boxesData,
 }): ReactElement => {
-  const { data: assetsData, isFetching: isAssetsFetching } = useGetAssetsQuery()
-
+  const {
+    data: assetsData,
+    isFetching: isAssetsFetching,
+    refetch,
+  } = useGetAssetsQuery()
+  const { data, refetch: refetchPort } = useGetUserPortsQuery()
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   useEffect(() => {
@@ -32,6 +37,11 @@ const Profile: FC<props> = ({
       setSelectedImage(boxesData[0].photoProof[0])
     }
   }, [boxesData])
+
+  useEffect(() => {
+    refetch()
+    refetchPort()
+  }, [refetch, refetchPort])
 
   if (loading) {
     return <GeneralContentLoader />
@@ -112,10 +122,30 @@ const Profile: FC<props> = ({
             {boxesData?.map((box, index) => {
               return (
                 <div key={index}>
-                  <h1 className='text-lg font-bold'>
-                    <span className='text-[#C1CF16]'>Serial number : </span>
-                    {box.serialNumber}
-                  </h1>
+                  <p className='text-lg font-bold  flex  flex-row items-center'>
+                    <span className='text-[#C1CF16] w-[150px] '>
+                      Serial number :{' '}
+                    </span>
+                    <span className=''>{box?.serialNumber}</span>
+                  </p>
+                  <p className='text-lg font-bold flex  flex-row items-center mt-10'>
+                    <span className='text-[#C1CF16] w-[150px] '>
+                      Mqtt host :{' '}
+                    </span>
+                    <span>{data?.data[0]?.port}</span>
+                  </p>
+                  <p className='text-lg font-bold flex  flex-row items-center mt-10'>
+                    <span className='text-[#C1CF16] w-[150px] '>
+                      Mqtt port :{' '}
+                    </span>
+                    <span>{data?.data[0]?.mqttPort}</span>
+                  </p>
+                  <p className='text-lg font-bold flex  flex-row items-center mt-10'>
+                    <span className='text-[#C1CF16] w-[150px] '>
+                      Mqtt Username :{' '}
+                    </span>
+                    <span>{data?.data[0]?.mqttUsername}</span>
+                  </p>
                 </div>
               )
             })}

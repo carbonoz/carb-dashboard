@@ -55,6 +55,22 @@ export interface additionalInfoInt {
   phone: string
 }
 
+export interface getPortsResponse {
+  message: string
+  data: Array<getPort>
+}
+
+export interface getPort {
+  id: string
+  createdAt: string
+  updatedAt: string
+  mqttUsername: string
+  mqttPassword: string
+  mqttPort: number
+  userId: string
+  port: string
+}
+
 const userEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAssets: builder.query<AssetResponse, void>({
@@ -96,6 +112,13 @@ const userEndpoints = baseAPI.injectEndpoints({
         body: DTO,
       }),
     }),
+    getUserPorts: builder.query<getPortsResponse, void>({
+      providesTags: ['Ports'],
+      query: () => ({
+        url: `user/ports`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -105,4 +128,5 @@ export const {
   useAddAssetMutation,
   useAddAdditionalInfoMutation,
   useUploadRedexFileMutation,
+  useGetUserPortsQuery,
 } = userEndpoints
