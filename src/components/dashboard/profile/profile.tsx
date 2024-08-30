@@ -86,8 +86,8 @@ const Profile: FC<props> = ({
           Device
         </h1>
         <div className='border-t-[1px] border-gray-300 ' />
-        <div className='text-lg  p-5 flex flex-row   gap-10'>
-          <section>
+        <div className='text-lg  p-5 flex 3xl:flex-row  2xl:flex-row  xl:flex-col lg:flex-col md:flex-col lg:gap-10'>
+          <section className=' border border-gray-200  rounded-lg'>
             {selectedImage && (
               <div className='mb-4'>
                 <CustomImage
@@ -99,7 +99,7 @@ const Profile: FC<props> = ({
                 />
               </div>
             )}
-            <div className='flex flex-row items-center gap-3  p-4 '>
+            <div className='flex flex-row items-center gap-3  p-4 border border-t-2 border-gray-200 '>
               {boxesData
                 ?.flatMap((box) => box.photoProof)
                 .map((image, index) => (
