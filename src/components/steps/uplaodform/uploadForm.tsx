@@ -71,7 +71,7 @@ const UploadForm: FC<Props> = ({
 
     const localToken = getFromLocal<string>('token')
 
-    fetch(`http://localhost:9000/api/v1/user/redex-file`, {
+    fetch(`http://192.168.160.190:9000/api/v1/user/redex-file`, {
       headers: {
         authorization: `Bearer ${localToken}`,
       },
