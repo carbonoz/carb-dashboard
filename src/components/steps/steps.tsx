@@ -192,11 +192,11 @@ const UserSteps: FC = (): ReactElement | boolean => {
   }
 
   return (
-    <div className='flex flex-col overflow-y-hidden h-[100vh]'>
+    <div className='flex flex-col overflow-y-hidden 2xl:h-[100vh] xl:h-[100%] lg:h-[100%] h-[100%]'>
       <NavBar data={data?.data} additional={true} />
       {!isFetching ? (
-        <div className='h-[100%]'>
-          <section className='flex justify-center h-[100%] '>
+        <div className='h-[100%] overflow-y-auto'>
+          <section className='flex justify-center h-[100%] overflow-y-hidden '>
             <div className='2xl:w-[60%] xl:w-[80%] lg:w-[88%] w-[80%] mt-10 h-[100%]'>
               <h1 className='text-lg font-bold text-[#c1cf16]'>
                 {stepHeaders[current] || 'Additional Information'}
@@ -204,23 +204,21 @@ const UserSteps: FC = (): ReactElement | boolean => {
               <Steps
                 current={current}
                 items={items}
-                className='mt-10  w-[100%] '
+                className='mt-10  w-[100%]'
               />
-              <div className='mt-[50px]  h-[500px]  overflow-y-hidden'>
+              <div className='mt-[50px]  lg:h-[500px] h-[100%]  overflow-y-hidden'>
                 {steps[current].content}
               </div>
-              <div className=' mt-[25px] flex flex-row gap-5 w-full'>
+              <div className=' 2xl:mt-[25px] lg:mt-[20px] mt-[30px] mb-[100px] flex lg:flex-row md:flex-row sm:flex-row flex-col gap-5 w-full'>
                 {current === 0 && !userInfoData
-                  ? // Hide the "Next" button if current is 0 and no userInfoData
-                    null
+                  ? null
                   : current === 1 && (!assetData || assetData.length === 0)
-                  ? // Hide the "Next" button if current is 1 and no assetData or assetData is empty
-                    null
+                  ? null
                   : current < steps.length - 1 && (
                       <CustomButton
                         type='primary'
                         onClick={checkFile}
-                        className='w-[30%] h-[60px]'
+                        className='lg:w-[30%] w-[100%] h-[60px]'
                       >
                         Next
                       </CustomButton>
@@ -228,7 +226,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
                 {current > 0 && (
                   <CustomButton
                     onClick={prev}
-                    className='w-[30%] h-[60px]'
+                    className='lg:w-[30%] w-[100%] h-[60px]'
                     type='primary'
                   >
                     Previous
@@ -237,7 +235,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
                 {current === 2 && (
                   <CustomButton
                     onClick={saveFile}
-                    className='w-[30%] h-[60px] custom-button'
+                    className='lg:w-[30%] w-[100%] h-[60px] custom-button'
                     type='primary'
                     background={'bg-[#31b0d5]'}
                   >
@@ -246,7 +244,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
                 )}
                 <CustomButton
                   type='primary'
-                  className='w-[30%] h-[60px] custom-button '
+                  className='lg:w-[30%] w-[100%] h-[60px] custom-button '
                   form={getCurrentFormId()}
                   htmlType='submit'
                   background={'bg-[#31b0d5]'}

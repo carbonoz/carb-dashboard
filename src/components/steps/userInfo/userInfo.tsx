@@ -1,6 +1,7 @@
 import { Col, Form, Row } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import { FC, ReactElement, useEffect } from 'react'
+import { FC, ReactElement, useEffect, useMemo } from 'react'
+import countryList from 'react-select-country-list'
 import { ESteps } from '../../../config/constant'
 import handleAPIRequests from '../../../helpers/handleApiRequest'
 import requiredField from '../../../helpers/requiredField'
@@ -38,8 +39,9 @@ const UserInfo: FC<Props> = ({
 
   useEffect(() => {
     refetch()
-    //eslint-disable-next-line
-  }, [])
+  }, [refetch])
+
+  const options = useMemo(() => countryList().getData(), [])
 
   const onAddSucess = () => {}
 
@@ -109,20 +111,26 @@ const UserInfo: FC<Props> = ({
         </Col>
         <Col className='gutter-row mt-2 ' span={12}>
           <CustomInput
+            placeholder='Country'
+            label='Country'
+            inputType='text'
+            name='country'
+            type='select'
+            options={options.map((item) => ({
+              key: item.value,
+              value: item.label,
+              label: item.label,
+            }))}
+            rules={requiredField('Country')}
+          />
+        </Col>
+        <Col className='gutter-row mt-2 ' span={12}>
+          <CustomInput
             placeholder='City'
             label='City'
             inputType='text'
             name='city'
             rules={requiredField('City')}
-          />
-        </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
-          <CustomInput
-            placeholder='Country'
-            label='Country'
-            inputType='text'
-            name='country'
-            rules={requiredField('Country')}
           />
         </Col>
         <Col className='gutter-row mt-2 ' span={12}>
