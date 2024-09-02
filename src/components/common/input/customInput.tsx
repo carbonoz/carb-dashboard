@@ -59,14 +59,14 @@ const CustomInput: FC<CustomInputProps> = ({
   const SelectMultipleInput = (
     <div className='mb-[-10px]'>
       {label && (
-        <label className='text-[18px] text-black font-[500] mb-2 block'>
+        <label className='text-[14px] text-black font-bold mb-2 block'>
           {label}
         </label>
       )}
 
       <Form.Item name={name} rules={rules}>
         <Select
-          className={`rounded h-[60px] ${styles}`}
+          className={`rounded h-[60px] ${styles} hover:border-[#c1cf16]`}
           mode='multiple'
           size='large'
           loading={isLoading}
@@ -86,7 +86,7 @@ const CustomInput: FC<CustomInputProps> = ({
   const SelectInput = (
     <div className='mb-[-10px]'>
       {label && (
-        <label className='text-[18px] text-black font-[500] mb-2 block'>
+        <label className='text-[14px] text-black font-bold mb-2 block'>
           {label}
         </label>
       )}
@@ -95,7 +95,7 @@ const CustomInput: FC<CustomInputProps> = ({
         <Select
           value={value as string | number}
           onChange={(value) => onChange(value as string | number)}
-          className='rounded h-[60px] border border-gray-300 flex items-center'
+          className='rounded h-[60px]  flex items-center hover:border-[#c1cf16]'
           loading={isLoading}
           disabled={disabled}
           options={options}

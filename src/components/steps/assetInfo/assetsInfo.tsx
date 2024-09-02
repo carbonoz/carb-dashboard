@@ -1,7 +1,9 @@
 import { Col, Form, Row } from 'antd'
-import { FC, ReactElement, useEffect } from 'react'
+import { FC, ReactElement, useEffect, useMemo } from 'react'
+import countryList from 'react-select-country-list'
 import { EFuelType, ESteps } from '../../../config/constant'
 import handleAPIRequests from '../../../helpers/handleApiRequest'
+import { useWindowSize } from '../../../helpers/interfaceSize'
 import requiredField from '../../../helpers/requiredField'
 import {
   assetInt,
@@ -37,6 +39,8 @@ const AssetsInfo: FC<props> = ({
   const [addAsset] = useAddAssetMutation()
   const { data, refetch } = useGetAssetsQuery()
 
+  const options = useMemo(() => countryList().getData(), [])
+
   const onAddSucess = () => {}
 
   const onSuccess = () => {
@@ -68,8 +72,8 @@ const AssetsInfo: FC<props> = ({
     obj.latitude = parseFloat(`${obj.latitude}`)
     obj.longitude = parseFloat(`${obj.longitude}`)
     obj.capacity = parseFloat(`${obj.capacity}`)
+    obj.assetOwner = 'tes'
     setLoadingAction(true)
-
     handleAPIRequests({
       request: addAsset,
       ...obj,
@@ -92,6 +96,12 @@ const AssetsInfo: FC<props> = ({
     },
   ]
 
+  const { width } = useWindowSize()
+
+  const latitudeRegex = /^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?)$/
+  const longitudeRegex =
+    /^-?((1[0-7][0-9](\.\d+)?)|([1-9]?[0-9](\.\d+)?)|180(\.0+)?)$/
+
   return (
     <Form
       className='space-y-12'
@@ -100,7 +110,7 @@ const AssetsInfo: FC<props> = ({
       onFinish={onFinish}
     >
       <Row className='w-[100%]' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col className='gutter-row mt-2 ' span={12}>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
             placeholder='Asset name'
             label='Asset name'
@@ -109,16 +119,7 @@ const AssetsInfo: FC<props> = ({
             rules={requiredField('Asset name')}
           />
         </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
-          <CustomInput
-            placeholder='Asset owner'
-            label='Asset owner'
-            inputType='text'
-            name='assetOwner'
-            rules={requiredField('Asset owner')}
-          />
-        </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
             placeholder='Address'
             label='Address'
@@ -127,10 +128,10 @@ const AssetsInfo: FC<props> = ({
             rules={requiredField('address')}
           />
         </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
             placeholder='Fuel type'
-            label='Fuel type'
+            label='Type of electricity generation'
             inputType='text'
             name='fuelType'
             type='select'
@@ -142,37 +143,56 @@ const AssetsInfo: FC<props> = ({
             rules={requiredField('Fuel type')}
           />
         </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
-            placeholder='Latitude'
-            label='Latitude'
+            placeholder='-74.0058'
+            label='Latitude '
             inputType='number'
             name='latitude'
-            rules={requiredField('Latitude')}
+            rules={[
+              {
+                pattern: latitudeRegex,
+                message:
+                  'Latitude must be between -90 and 90 with up to 6 decimal places.',
+              },
+            ]}
           />
         </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
+
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
+          <CustomInput
+            placeholder='139.7500'
+            label='Longitude'
+            inputType='number'
+            name='longitude'
+            rules={[
+              {
+                pattern: longitudeRegex,
+                message:
+                  'Longitude must be between -180 and 180 with up to 6 decimal places.',
+              },
+            ]}
+          />
+        </Col>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
             placeholder='Country'
             label='Country'
             inputType='text'
             name='country'
+            type='select'
+            options={options.map((item) => ({
+              key: item.value,
+              value: item.label,
+              label: item.label,
+            }))}
             rules={requiredField('Country')}
           />
         </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
+        <Col className='gutter-row mt-2 ' span={width <= 480 ? 24 : 12}>
           <CustomInput
-            placeholder='Longitude'
-            label='Longitude'
-            inputType='number'
-            name='longitude'
-            rules={requiredField('Longitude')}
-          />
-        </Col>
-        <Col className='gutter-row mt-2 ' span={12}>
-          <CustomInput
-            placeholder='Capacity'
-            label='Capacity'
+            placeholder='Capacity KWh'
+            label='Capacity KWh'
             inputType='number'
             name='capacity'
             rules={requiredField('Capacity')}
