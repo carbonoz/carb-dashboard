@@ -2,19 +2,45 @@ import { baseAPI } from '../api'
 
 export interface AssetResponse {
   message: string
-  data: Array<assetInt>
+  data: assetInt
+}
+
+export interface RedexFileResponse {
+  message: string
+  data: string
 }
 
 export interface assetInt {
   id: string
-  assetOwner: string
   assetName: string
+  assetOwner: string
   fuelType: string
   country: string
-  address: string
   latitude: number
   longitude: number
-  capacity: number
+  capacityKwp: number
+  service: string
+  codDate: string
+  amountOfInverters: number
+  amountOfPanels: number
+  panelBrand: string
+  panelPower: number
+  amountOfBatteries?: number
+  batteryBrand?: string
+  batteryModel?: string
+  inverterModel: string
+  monitoringSystemName: string
+  monitoringSystemURL: string
+  buildingPhotoUpload: string
+  inverterSetupPhotoUpload: string
+  solarPanelsPhotoUpload: string
+  inverterBrand: string
+  BatterySerialNumber1: string
+  BatterySerialNumber2: string
+  BatterySerialNumber3: string
+  InverterSerialnumber1: string
+  InverterSerialnumber2: string
+  InverterSerialnumber3: string
   userId: string
 }
 export interface AdditionalInfoResponse {
@@ -24,13 +50,13 @@ export interface AdditionalInfoResponse {
 
 export interface AdditionalInfoInt {
   id: string
-  jobTitle: string
-  names: string
-  address: string
-  postalCode: string
+  firstName: string
+  lastName: string
+  street: string
   city: string
-  country: string
-  phone: string
+  telephone: string
+  customerLanguage: string
+  customerTimezone: string
   userId: string
 }
 
@@ -39,20 +65,41 @@ export interface AssetDTO {
   assetOwner: string
   fuelType: string
   country: string
-  address: string
   latitude: number
   longitude: number
-  capacity: number
+  capacityKwp: number
+  service: string
+  codDate: string
+  amountOfInverters: number
+  amountOfPanels: number
+  panelBrand: string
+  panelPower: number
+  amountOfBatteries?: number
+  batteryBrand?: string
+  batteryModel?: string
+  inverterModel: string
+  monitoringSystemName: string
+  monitoringSystemURL: string
+  buildingPhotoUpload: string
+  inverterSetupPhotoUpload: string
+  solarPanelsPhotoUpload: string
+  inverterBrand: string
+  BatterySerialNumber1: string
+  BatterySerialNumber2: string
+  BatterySerialNumber3: string
+  InverterSerialnumber1: string
+  InverterSerialnumber2: string
+  InverterSerialnumber3: string
 }
 
 export interface additionalInfoInt {
-  jobTitle: string
-  names: string
-  address: string
-  postalCode: string
+  firstName: string
+  lastName: string
+  street: string
   city: string
-  country: string
-  phone: string
+  telephone: string
+  customerLanguage: string
+  customerTimezone: string
 }
 
 export interface getPortsResponse {
@@ -69,6 +116,67 @@ export interface getPort {
   mqttPort: number
   userId: string
   port: string
+}
+
+export interface MeterDTO {
+  meterId: null | string
+  meterBrand: null | string
+  meterType: null | string
+  meteringEvidencePhotoUpload: string
+}
+
+export interface MeterResponse {
+  message: string
+  data: MeterInterface
+}
+
+export interface MeterInterface {
+  id: string
+  meterId: null | string
+  meterBrand: null | string
+  meterType: null | string
+  meteringEvidencePhotoUpload: string
+}
+
+export interface ProjectResponse {
+  message: string
+  data: ProjectInterface
+}
+
+export interface ProjectInterface {
+  id: string
+  projectBackground: null | string
+  projectDescription: null | string
+  projectImpact: null | string
+}
+
+export interface ProjectDTO {
+  projectBackground: null | string
+  projectDescription: null | string
+  projectImpact: null | string
+}
+
+export interface AgreementDTO {
+  powerPurchaseAgreement?: string | null
+  interconnectionAgreement?: string | null
+  commissioningCertificationToGrid?: string | null
+  commissioningCertificationOrInspection?: string | null
+  powerQualityTest?: string | null
+  IDPhotoUploadorCompanyCertificate?: string | null
+}
+export interface CertifacateResponse {
+  message: string
+  data: AgreementInterface
+}
+
+export interface AgreementInterface {
+  id: string
+  powerPurchaseAgreement?: string
+  interconnectionAgreement?: string
+  commissioningCertificationToGrid?: string
+  commissioningCertificationOrInspection?: string
+  powerQualityTest?: string
+  IDPhotoUploadorCompanyCertificate: string
 }
 
 const userEndpoints = baseAPI.injectEndpoints({
@@ -119,6 +227,58 @@ const userEndpoints = baseAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getRedexFileId: builder.query<RedexFileResponse, void>({
+      providesTags: ['Redex-file'],
+      query: () => ({
+        url: `user/redex`,
+        method: 'GET',
+      }),
+    }),
+    addMeter: builder.mutation<unknown, MeterDTO>({
+      invalidatesTags: ['Meter'],
+      query: (DTO) => ({
+        url: `user/meter`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
+    getMeter: builder.query<MeterResponse, void>({
+      providesTags: ['Meter'],
+      query: () => ({
+        url: `user/meter`,
+        method: 'GET',
+      }),
+    }),
+    addProject: builder.mutation<unknown, ProjectDTO>({
+      invalidatesTags: ['Project'],
+      query: (DTO) => ({
+        url: `user/project`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
+    getProject: builder.query<ProjectResponse, void>({
+      providesTags: ['Project'],
+      query: () => ({
+        url: `user/project`,
+        method: 'GET',
+      }),
+    }),
+    addCertificate: builder.mutation<unknown, AgreementDTO>({
+      invalidatesTags: ['Certification'],
+      query: (DTO) => ({
+        url: `user/certification`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
+    getCertificate: builder.query<CertifacateResponse, void>({
+      providesTags: ['Certification'],
+      query: () => ({
+        url: `user/certification`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -129,4 +289,11 @@ export const {
   useAddAdditionalInfoMutation,
   useUploadRedexFileMutation,
   useGetUserPortsQuery,
+  useGetRedexFileIdQuery,
+  useAddMeterMutation,
+  useGetMeterQuery,
+  useAddProjectMutation,
+  useGetProjectQuery,
+  useAddCertificateMutation,
+  useGetCertificateQuery,
 } = userEndpoints

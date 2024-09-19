@@ -8,27 +8,22 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useNavigate } from 'react-router-dom'
 import pdf from '../../assets/redex-form/Template.pdf'
 import { ESteps } from '../../config/constant'
 import handleAPIRequests from '../../helpers/handleApiRequest'
 import {
   useGetStepsQuery,
   useMakeStepMutation,
-} from '../../lib/api/steps/stepsEndpoints'
-import {
-  AdditionalInfoInt,
-  assetInt,
-  useGetAdditionalInfoQuery,
-} from '../../lib/api/user/userEndPoints'
+} from '../../lib/api/redexsteps/stepsEndpoints'
+import { useGetAdditionalInfoQuery } from '../../lib/api/user/userEndPoints'
+import Private from '../../routes/private'
 import CustomButton from '../common/button/button'
 import NavBar from '../common/header/header'
 import { GeneralContentLoader } from '../common/loader/loader'
-import AssetsInfo from './assetInfo/assetsInfo'
 import RedexForm from './redexform/redexInfo'
 import UploadForm from './uplaodform/uploadForm'
-import UserInfo from './userInfo/userInfo'
-import Private from '../../routes/private'
-import { useNavigate } from 'react-router-dom'
+import RedexFields from './redexFields/redexFields'
 
 const UserSteps: FC = (): ReactElement | boolean => {
   const { data: stepsData, isFetching, refetch } = useGetStepsQuery()
@@ -37,23 +32,14 @@ const UserSteps: FC = (): ReactElement | boolean => {
   const navigate = useNavigate()
 
   const [makeStep, { isLoading }] = useMakeStepMutation()
-  const [userInfoData, setUserInfoData] = useState<
-    AdditionalInfoInt | undefined
-  >(undefined)
-
-  const [assetData, setAssetData] = useState<Array<assetInt> | undefined>(
-    undefined
-  )
-
   const [isFile, setIsFile] = useState<boolean>(false)
   const [loadingAction, setLoadingAction] = useState<boolean>(false)
 
   const initialStepIndex = useMemo(() => {
     const stepMapping: { [key: string]: number } = {
-      USER_INFO: 0,
-      ASSET_INFO: 1,
-      REDEX_FORM: 2,
-      UPLOAD_FORM: 3,
+      REDEX_FORM: 0,
+      UPLOAD_FORM: 1,
+      REDEX_FIELDS: 2,
     }
     if (stepsData?.data && stepsData.data.length > 0) {
       return stepMapping[stepsData.data[0].step] ?? 0
@@ -77,7 +63,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
       stepsData.data.length > 0 &&
       stepsData.data[0].status === true
     ) {
-      navigate('/ds')
+      navigate('/systemsteps')
     }
   }, [stepsData, navigate])
 
@@ -94,28 +80,6 @@ const UserSteps: FC = (): ReactElement | boolean => {
   const steps = useMemo(
     () => [
       {
-        title: 'User Information',
-        content: (
-          <UserInfo
-            setUserInfoData={setUserInfoData}
-            makeStep={makeStep as () => unknown}
-            setLoadingAction={setLoadingAction}
-          />
-        ),
-        formId: 'user-info-form',
-      },
-      {
-        title: 'Assets Information',
-        content: (
-          <AssetsInfo
-            makeStep={makeStep as () => unknown}
-            setAssetData={setAssetData}
-            setLoadingAction={setLoadingAction}
-          />
-        ),
-        formId: 'asset-info-form',
-      },
-      {
         title: 'Redex Information',
         content: <RedexForm />,
         formId: 'redex-info-form',
@@ -129,6 +93,16 @@ const UserSteps: FC = (): ReactElement | boolean => {
           />
         ),
         formId: 'upload-info-form',
+      },
+      {
+        title: 'Redex Fields',
+        content: (
+          <RedexFields
+            makeStep={makeStep as () => unknown}
+            setLoadingAction={setLoadingAction}
+          />
+        ),
+        formId: 'redex-fields-form',
       },
     ],
     [makeStep]
@@ -170,7 +144,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
     const onSuccess = () => {
       next()
     }
-    if (!!isFile && current === 2) {
+    if (!!isFile && current === 0) {
       const data = {
         step: ESteps.UPLOAD_FORM,
       }
@@ -185,18 +159,17 @@ const UserSteps: FC = (): ReactElement | boolean => {
   }, [isFile, current, makeStep, next])
 
   const stepHeaders: { [key: number]: string } = {
-    0: 'User Information',
-    1: 'Assets Information',
-    2: 'Redex Information',
-    3: 'Upload signed form',
+    0: 'Redex Information',
+    1: 'Upload signed form',
+    2: 'Redex Fields',
   }
 
   return (
     <div className='flex flex-col overflow-y-hidden 2xl:h-[100vh] xl:h-[100%] lg:h-[100%] h-[100%]'>
       <NavBar data={data?.data} additional={true} />
       {!isFetching ? (
-        <div className='h-[100%] overflow-y-auto'>
-          <section className='flex justify-center h-[100%] overflow-y-hidden '>
+        <div className='h-[100%] overflow-y-auto scroll'>
+          <section className='flex justify-center h-[100%] overflow-y-auto scroll '>
             <div className='2xl:w-[60%] xl:w-[80%] lg:w-[88%] w-[80%] mt-10 h-[100%]'>
               <h1 className='text-lg font-bold text-[#c1cf16]'>
                 {stepHeaders[current] || 'Additional Information'}
@@ -206,15 +179,25 @@ const UserSteps: FC = (): ReactElement | boolean => {
                 items={items}
                 className='mt-10  w-[100%]'
               />
-              <div className='mt-[50px]  lg:h-[500px] h-[100%]  overflow-y-hidden'>
+              <div
+                className={` ${
+                  current === 2
+                    ? 'lg:h-[500px] overflow-y-auto overflow-x-hidden mt-[50px] scroll '
+                    : 'lg:h-[600px] overflow-y-auto overflow-x-hidden scroll '
+                } '  h-[100%] p-10`}
+              >
                 {steps[current].content}
               </div>
-              <div className=' 2xl:mt-[25px] lg:mt-[20px] mt-[30px] mb-[100px] flex lg:flex-row md:flex-row sm:flex-row flex-col gap-5 w-full'>
-                {current === 0 && !userInfoData
+              <div className=' 2xl:mt-[60px] lg:mt-[60px] mt-[30px] mb-[100px] flex lg:flex-row md:flex-row sm:flex-row flex-col gap-5 w-full'>
+                {current === 1 &&
+                stepsData?.data &&
+                stepsData.data.length > 0 &&
+                stepsData.data[0].step !== ESteps.REDEX_FIELDS
                   ? null
-                  : current === 1 && (!assetData || assetData.length === 0)
-                  ? null
-                  : current < steps.length - 1 && (
+                  : current < steps.length - 1 &&
+                    stepsData?.data &&
+                    stepsData.data.length > 0 &&
+                    typeof stepsData.data[0].isFile === 'boolean' && (
                       <CustomButton
                         type='primary'
                         onClick={checkFile}
@@ -232,14 +215,14 @@ const UserSteps: FC = (): ReactElement | boolean => {
                     Previous
                   </CustomButton>
                 )}
-                {current === 2 && (
+                {current === 0 && (
                   <CustomButton
                     onClick={saveFile}
                     className='lg:w-[30%] w-[100%] h-[60px] custom-button'
                     type='primary'
                     background={'bg-[#31b0d5]'}
                   >
-                    Downlaod form
+                    Download form
                   </CustomButton>
                 )}
                 <CustomButton

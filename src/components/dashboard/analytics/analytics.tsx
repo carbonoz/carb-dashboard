@@ -31,6 +31,7 @@ const Analytics: FC = (): ReactElement => {
   } = useGetEnergyForLast10YearsQuery()
 
   const pastSevenDays = data ? [...data.data].reverse() : []
+  const pastThirtyDays = monthlyData ? [...monthlyData.data].reverse() : []
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
@@ -103,7 +104,7 @@ const Analytics: FC = (): ReactElement => {
         <div className='border-t-[1px] border-gray-300 ' />
         <div className='p-5'>
           <EnergyTable
-            data={pastSevenDays}
+            data={pastThirtyDays}
             isFetching={isFetching}
             type='monthly'
             pagination={paginationConfig}

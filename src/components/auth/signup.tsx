@@ -30,7 +30,7 @@ const Signup: FC = (): ReactElement => {
   const onSuccess = (res: AuthResponse): void => {
     if (res.data) {
       setToLocal('token', res.data.token)
-      navigate('/steps')
+      navigate('/onboarding')
     }
   }
 
