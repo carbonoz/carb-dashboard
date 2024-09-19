@@ -24,7 +24,7 @@ const NavBar: FC<props> = ({ data, additional }): ReactElement => {
   const ProfileDropdown = (
     <div className='w-[100%] rounded shadow-md z-100 bg-white p-2 mt-6'>
       <p className='p-4 px-2 w-[100%] font-medium flex flex-row gap-2'>
-        <span className='text-gray-400'>{data?.names}</span>
+        <span className='text-gray-400'>{data?.firstName}</span>
       </p>
 
       <div
@@ -55,7 +55,7 @@ const NavBar: FC<props> = ({ data, additional }): ReactElement => {
         <div className='flex items-center gap-2 lg:gap-4 cursor-pointer hover:bg-inherit hover:text-[#C1CF16]  p-2 px-2 rounded'>
           <FaRegUser />
           <div className='flex items-center gap-2'>
-            <p className='hidden lg:block'>{data?.names}</p>
+            <p className='hidden lg:block'>{data?.lastName}</p>
             <MdKeyboardArrowDown
               size={14}
               className='object-cover rounded-full'

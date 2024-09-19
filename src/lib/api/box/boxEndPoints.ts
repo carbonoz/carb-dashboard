@@ -9,15 +9,14 @@ export interface BoxesResponse {
 export interface boxInterface {
   id: string
   userId: string
-  serialNumber: string
-  mqttIpAddress: string
-  photoProof: Array<string>
+  port: string
+  mqttUsername: string
+  mqttPassword: string
+  mqttPort: number
   user: AuthInt
 }
 
 export interface RegisterBoxDTO {
-  serialNumber: string
-  photoProof: Array<string>
   mqttIpAddress: string
   mqttUsername: string
   mqttPassword: string

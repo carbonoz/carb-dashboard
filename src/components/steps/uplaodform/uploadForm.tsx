@@ -51,7 +51,7 @@ const UploadForm: FC<Props> = ({
   const onSuccess = () => {
     setLoadingAction(false)
     const data = {
-      step: ESteps.LAST_STEP,
+      step: ESteps.REDEX_FIELDS,
     }
     handleAPIRequests({
       request: makeStep,
@@ -71,7 +71,7 @@ const UploadForm: FC<Props> = ({
 
     const localToken = getFromLocal<string>('token')
 
-    fetch(`http://192.168.160.190:9000/api/v1/user/redex-file`, {
+    fetch(`http://localhost:9000/api/v1/user/redex-file`, {
       headers: {
         authorization: `Bearer ${localToken}`,
       },
@@ -104,6 +104,14 @@ const UploadForm: FC<Props> = ({
 
   return (
     <Form name='upload-info-form' form={form} onFinish={onFinish}>
+      <div className='mb-8 p-4 border border-gray-300 rounded mr-0'>
+        <h2 className='text-lg font-bold mb-4'>Form Upload Instructions</h2>
+        <p className='mb-2'>
+          Please upload the signed form as a PDF file. This form is crucial to
+          the REDEX process. Ensure the document is clear and correctly filled
+          out. Once uploaded, click submit to proceed.
+        </p>
+      </div>
       <h2>Upload form</h2>
       <div>
         <Dropzone
@@ -132,6 +140,7 @@ const UploadForm: FC<Props> = ({
                       <RedexForm
                         file={preview}
                         className='h-[200px] w-[200px] '
+                        noDisplay={true}
                       />
                     )}
                     <p>{fileName}</p>
