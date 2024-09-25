@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Login from './components/auth/login'
 import Signup from './components/auth/signup'
+import VerifyEmail from './components/auth/verifyEmail'
 import ChoosePartnersTypeForm from './components/firststep/choosetype'
 import ErrorPage from './components/notfound/ErrorPage'
 import UserSteps from './components/steps/steps'
@@ -16,6 +17,7 @@ function App() {
       <Route path='/redexsteps' element={<UserSteps />} />
       <Route path='/systemsteps' element={<SystemUserSteps />} />
       <Route path='/onboarding' element={<ChoosePartnersTypeForm />} />
+      <Route path='/verify-email' element={<VerifyEmail />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   )

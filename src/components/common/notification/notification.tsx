@@ -6,6 +6,7 @@ interface NotifyProps {
   description?: string
   message?: string
   type?: 'success' | 'info' | 'warning' | 'error'
+  duration?: number
 }
 
 const Notify: FC<NotifyProps> = ({
@@ -13,6 +14,7 @@ const Notify: FC<NotifyProps> = ({
   description,
   message = 'Notification',
   type = 'success',
+  duration = 4.5,
 }) => {
   notification.destroy()
 
@@ -20,6 +22,7 @@ const Notify: FC<NotifyProps> = ({
     message,
     description,
     placement,
+    duration,
   })
 
   return null

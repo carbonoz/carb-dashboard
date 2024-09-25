@@ -10,6 +10,10 @@ export interface SignupDTO extends LoginDTO {
   role: ERoles
 }
 
+export interface verifyUserDTO {
+  token: string
+}
+
 export interface AuthResponse {
   data: {
     token: string
@@ -30,14 +34,21 @@ const authApi = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginDTO>({
       query: (DTO) => ({
-        url: `/auth/login/`,
+        url: `/auth/login`,
         method: 'POST',
         body: DTO,
       }),
     }),
     signup: builder.mutation<AuthResponse, SignupDTO>({
       query: (DTO) => ({
-        url: `/auth/sign-up/`,
+        url: `/auth/sign-up`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
+    verify: builder.mutation<AuthResponse, verifyUserDTO>({
+      query: (DTO) => ({
+        url: `/auth/verify-user`,
         method: 'POST',
         body: DTO,
       }),
@@ -45,4 +56,5 @@ const authApi = baseAPI.injectEndpoints({
   }),
 })
 
-export const { useLoginMutation, useSignupMutation } = authApi
+export const { useLoginMutation, useSignupMutation, useVerifyMutation } =
+  authApi
