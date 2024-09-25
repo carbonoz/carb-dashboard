@@ -148,28 +148,28 @@
 
 /* Override Ant Design steps styles */
 .ant-steps-item-active .ant-steps-item-icon {
-  background-color: #1c2834 !important; /* Green color for active step */
-  border-color: #1c2834 !important; /* Green border color */
+  background-color: #1c2834 !important;
+  border-color: #1c2834 !important;
   color: #1c2834;
 }
 
 .ant-steps-item-process .ant-steps-item-icon {
-  background-color: #1c2834 !important; /* Green color for completed steps */
-  border-color: #1c2834 !important; /* Green border color */
+  background-color: #1c2834 !important;
+  border-color: #1c2834 !important;
 }
 
 /* Optional: Change the color of the text for the active step */
 .ant-steps-item-active .ant-steps-item-title {
-  color: #1c2834 !important; /* Green color for active step text */
+  color: #1c2834 !important;
 }
 
 /* Override the line color for completed steps */
 .ant-steps-item-finish .ant-steps-item-icon {
-  background-color: #c1cf16 !important; /* Green color for the step icon */
-  border-color: #c1cf16 !important; /* Green border color */
+  background-color: #c1cf16 !important;
+  border-color: #c1cf16 !important;
   color: #c1cf16 !important;
 }
 
 .ant-steps-item-finish .ant-steps-item-icon .anticon {
-  color: #1c2834 !important; /* Green color for the check icon */
+  color: #1c2834 !important;
 }

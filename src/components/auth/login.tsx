@@ -12,6 +12,7 @@ import {
 } from '../../lib/api/Auth/authEndpoints'
 import CustomButton from '../common/button/button'
 import CustomInput from '../common/input/customInput'
+import Notify from '../common/notification/notification'
 
 const Login: FC = (): ReactElement => {
   const [form] = Form.useForm()
@@ -21,8 +22,18 @@ const Login: FC = (): ReactElement => {
 
   const onSuccess = (res: AuthResponse): void => {
     if (res.data) {
-      setToLocal('token', res.data.token)
-      navigate('/ds')
+      if (res.data.token) {
+        setToLocal('token', res.data.token)
+        navigate('/ds')
+      } else {
+        Notify({
+          message: 'Error',
+          description:
+            'Your Email is not verified , we sent you a verification link to your email Address',
+          duration: 0,
+          type: 'error',
+        })
+      }
     }
   }
 

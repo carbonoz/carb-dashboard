@@ -6,7 +6,9 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { getFromLocal } from '../../helpers/handleStorage'
 
-const BASE_URL = 'http://192.168.160.190/api/v1'
+const API_URL = import.meta.env.VITE_API_URL
+
+const BASE_URL = `${API_URL}/v1`
 
 const baseQueryWithAuth = async (
   args: string | FetchArgs,

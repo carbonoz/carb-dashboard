@@ -38,7 +38,7 @@ const redexEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     registerDevice: builder.mutation<unknown, RegisterDeviceDTO>({
       query: (DTO) => ({
-        url: `/redex/device/`,
+        url: `/redex/device`,
         method: 'POST',
         body: DTO,
       }),

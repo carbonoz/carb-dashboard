@@ -8,6 +8,10 @@ import { getFromLocal, removeFromLocal } from '../../../helpers/handleStorage'
 import Notify from '../../common/notification/notification'
 import RedexForm from '../redexform/redexInfo'
 
+const API_URL = import.meta.env.VITE_API_URL
+
+const BASE_URL = `${API_URL}/v1`
+
 interface Props {
   makeStep: () => void
   setLoadingAction: (state: boolean) => void
@@ -71,7 +75,7 @@ const UploadForm: FC<Props> = ({
 
     const localToken = getFromLocal<string>('token')
 
-    fetch(`http://192.168.160.190/api/v1/user/redex-file`, {
+    fetch(`${BASE_URL}/user/redex-file`, {
       headers: {
         authorization: `Bearer ${localToken}`,
       },
