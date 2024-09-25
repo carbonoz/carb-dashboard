@@ -28,9 +28,18 @@ const Signup: FC = (): ReactElement => {
   const navigate = useNavigate()
 
   const onSuccess = (res: AuthResponse): void => {
+    form.resetFields()
     if (res.data) {
-      setToLocal('token', res.data.token)
-      navigate('/onboarding')
+      if (res.data.token) {
+        setToLocal('token', res.data.token)
+        navigate('/onboarding')
+      } else {
+        Notify({
+          message: 'Success',
+          description: 'we sent you a verification link to your email Address',
+          duration: 0,
+        })
+      }
     }
   }
 
@@ -50,7 +59,6 @@ const Signup: FC = (): ReactElement => {
         request: signup,
         ...data,
         onSuccess: onSuccess,
-        notify: true,
       })
     }
   }
