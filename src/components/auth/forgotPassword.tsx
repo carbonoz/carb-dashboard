@@ -1,54 +1,40 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Col, Form, Row } from 'antd'
-import { FC, ReactElement } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import handleAPIRequests from '../../helpers/handleApiRequest'
-import { setToLocal } from '../../helpers/handleStorage'
 import requiredField from '../../helpers/requiredField'
 import {
-  AuthResponse,
-  LoginDTO,
-  useLoginMutation,
+  resetPasswordDTO,
+  useResetAuthPasswordMutation,
 } from '../../lib/api/Auth/authEndpoints'
 import CustomButton from '../common/button/button'
 import CustomInput from '../common/input/customInput'
 import Notify from '../common/notification/notification'
 
-const Login: FC = (): ReactElement => {
+const ForgotPassword = () => {
   const [form] = Form.useForm()
-  const [login, { isLoading }] = useLoginMutation()
+  const [resetPassword, { isLoading }] = useResetAuthPasswordMutation()
 
-  const navigate = useNavigate()
-
-  const onSuccess = (res: AuthResponse): void => {
-    if (res.data) {
-      if (res.data.token) {
-        setToLocal('token', res.data.token)
-        navigate('/ds')
-      } else {
-        Notify({
-          message: 'Error',
-          description:
-            'Your Email is not verified , we sent you a verification link to your email Address',
-          duration: 0,
-          type: 'error',
-        })
-      }
-    }
+  const onSuccess = () => {
+    Notify({
+      message: 'Success',
+      description: 'we sent you a verification link to your email Address',
+      duration: 0,
+    })
   }
 
-  const onFinish = (values: LoginDTO) => {
+  const onFinish = (values: resetPasswordDTO) => {
     handleAPIRequests({
-      request: login,
+      request: resetPassword,
       ...values,
       onSuccess: onSuccess,
     })
   }
+
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background '>
       <div className='xl:w-[40%] 2xl:w-[32%] lg:w-[40%] 2xl:h-[650px] xl:h-[600px] lg:h-[580px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
         <h2 className='ml-7 -mt-[60px] text-white  font-bold text-[30px]'>
-          Welcome back to
+          Welcome to
         </h2>
       </div>
       <div className='p-4 xl:w-[40%] 2xl:w-[32%]  w-[80%] lg:w-[40%]  h-fit 2xl:h-[650px] xl:h-[600px] lg:h-[580px] bg-white    shadow-md sm:p-6 lg:p-8'>
@@ -58,7 +44,9 @@ const Login: FC = (): ReactElement => {
           form={form}
           onFinish={onFinish}
         >
-          <h5 className='text-xl font-bold text-center text-black'>Log in</h5>
+          <h5 className='text-xl font-bold text-center text-black'>
+            Forgot password{' '}
+          </h5>
           <Row className='w-[100%]'>
             <Col className='gutter-row mt-2 w-full'>
               <CustomInput
@@ -69,15 +57,6 @@ const Login: FC = (): ReactElement => {
                 rules={requiredField('Email')}
               />
             </Col>
-            <Col className='gutter-row mt-2 w-full'>
-              <CustomInput
-                placeholder='Password'
-                label='Password'
-                inputType='password'
-                name='password'
-                rules={requiredField('Password')}
-              />
-            </Col>
           </Row>
           <div className='flex items-center justify-center'>
             <CustomButton
@@ -86,22 +65,17 @@ const Login: FC = (): ReactElement => {
               form='login-form'
               htmlType='submit'
               disabled={isLoading}
+              loading={isLoading}
             >
-              {isLoading ? 'LOADING....' : 'LOGIN'}
+              SEND
             </CustomButton>
           </div>
-          <div className='flex flex-col gap-5 '>
+          <div className='flex items-center'>
             <Link
-              to='/signup'
+              to='/'
               className='text-md text-blue-300 font-bold hover:text-blue-300'
             >
-              Sign up
-            </Link>
-            <Link
-              to='/forgot-password'
-              className='text-md text-blue-300 font-bold hover:text-blue-300'
-            >
-              Forgot password?
+              Login
             </Link>
           </div>
         </Form>
@@ -110,4 +84,4 @@ const Login: FC = (): ReactElement => {
   )
 }
 
-export default Login
+export default ForgotPassword
