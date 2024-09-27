@@ -179,6 +179,10 @@ export interface AgreementInterface {
   IDPhotoUploadorCompanyCertificate: string
 }
 
+export interface ResetPasswordDto {
+  password: string
+}
+
 const userEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAssets: builder.query<AssetResponse, void>({
@@ -279,6 +283,14 @@ const userEndpoints = baseAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
+    resetPassword: builder.mutation<unknown, ResetPasswordDto>({
+      invalidatesTags: ['Certification'],
+      query: (DTO) => ({
+        url: `user/reset-password`,
+        method: 'PATCH',
+        body: DTO,
+      }),
+    }),
   }),
 })
 
@@ -296,4 +308,5 @@ export const {
   useGetProjectQuery,
   useAddCertificateMutation,
   useGetCertificateQuery,
+  useResetPasswordMutation,
 } = userEndpoints

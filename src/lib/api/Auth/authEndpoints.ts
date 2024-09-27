@@ -14,6 +14,10 @@ export interface verifyUserDTO {
   token: string
 }
 
+export interface resetPasswordDTO {
+  email: string
+}
+
 export interface AuthResponse {
   data: {
     token: string
@@ -53,8 +57,27 @@ const authApi = baseAPI.injectEndpoints({
         body: DTO,
       }),
     }),
+    resetAuthPassword: builder.mutation<AuthResponse, resetPasswordDTO>({
+      query: (DTO) => ({
+        url: `/auth/forgot-password`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
+    verifyOnResetEmail: builder.mutation<AuthResponse, verifyUserDTO>({
+      query: (DTO) => ({
+        url: `/auth/verify-user-email`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignupMutation, useVerifyMutation } =
-  authApi
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useVerifyMutation,
+  useResetAuthPasswordMutation,
+  useVerifyOnResetEmailMutation,
+} = authApi
