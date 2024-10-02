@@ -16,8 +16,6 @@ const uploadFile = ({
   const CLAUD_NAME = import.meta.env.VITE_CLAUDINARY_CLAUD_NAME
   const PRESET = import.meta.env.VITE_CLAUDINARY_PRESET
 
-  console.log({ files })
-
   return new Promise((resolve, reject) => {
     if (!CLAUD_NAME || !PRESET) {
       console.error('Environment variables for Cloudinary are not set.')
