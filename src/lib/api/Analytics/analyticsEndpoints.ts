@@ -18,21 +18,46 @@ export interface energyInt {
   userId: string
 }
 
+export interface filterDateDto {
+  from?: string
+  to?: string
+}
+
 const energyEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getEnergy: builder.query<EnergyData, void>({
+    getEnergy: builder.query<EnergyData, filterDateDto>({
       providesTags: ['Energy'],
-      query: () => ({
-        url: `energy/energy-data`,
-        method: 'GET',
-      }),
+      query: (dto) => {
+        const baseUrl = 'energy/energy-data'
+        const queryString =
+          dto && dto.from && dto.to
+            ? `?from=${encodeURIComponent(dto.from)}&to=${encodeURIComponent(
+                dto.to
+              )}`
+            : ''
+
+        return {
+          url: `${baseUrl}${queryString}`,
+          method: 'GET',
+        }
+      },
     }),
-    getEnergyFor30Days: builder.query<EnergyData, void>({
+    getEnergyFor30Days: builder.query<EnergyData, filterDateDto>({
       providesTags: ['Energy'],
-      query: () => ({
-        url: `energy/total/30`,
-        method: 'GET',
-      }),
+      query: (dto) => {
+        const baseUrl = 'energy/total/30'
+        const queryString =
+          dto && dto.from && dto.to
+            ? `?from=${encodeURIComponent(dto.from)}&to=${encodeURIComponent(
+                dto.to
+              )}`
+            : ''
+
+        return {
+          url: `${baseUrl}${queryString}`,
+          method: 'GET',
+        }
+      },
     }),
     getEnergyFor12Months: builder.query<EnergyData, void>({
       providesTags: ['Energy'],

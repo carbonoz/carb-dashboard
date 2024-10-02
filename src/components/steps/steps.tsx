@@ -232,6 +232,7 @@ const UserSteps: FC = (): ReactElement | boolean => {
                   htmlType='submit'
                   background={'bg-[#31b0d5]'}
                   loading={loadingAction || isLoading}
+                  disabled={loadingAction || isLoading}
                 >
                   {current === steps.length - 1 ? 'SEND' : 'SUBMIT'}
                 </CustomButton>

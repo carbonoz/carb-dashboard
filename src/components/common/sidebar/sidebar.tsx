@@ -1,12 +1,13 @@
 import { FC, ReactElement, cloneElement } from 'react'
 import { CiSettings } from 'react-icons/ci'
+import { FaChartPie } from 'react-icons/fa'
 import { FiUser } from 'react-icons/fi'
-import { GiWindTurbine } from 'react-icons/gi'
 import { IoHomeOutline } from 'react-icons/io5'
 import { MdDeviceHub } from 'react-icons/md'
 import { useMatch, useNavigate } from 'react-router-dom'
+import Logo from '../../../assets/1.jpg'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
-import { FaChartPie } from 'react-icons/fa'
+import CustomImage from '../image/customImage'
 
 interface SidebarItemProps {
   icon: ReactElement
@@ -55,7 +56,7 @@ const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
   return (
     <section className='w-[300px] h-[100%] flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100'>
       <div className='flex flex-row items-center gap-5 mb-8'>
-        <GiWindTurbine size={50} className='text-[#C1CF16]' />
+        <CustomImage src={Logo} width={50} className=' rounded-lg ' />
         <h1 className='text-2xl  text-[#C1CF16]'>CARBONOZ</h1>
       </div>
       <div className='mt-0 w-full'>

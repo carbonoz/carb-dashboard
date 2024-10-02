@@ -11,12 +11,12 @@ import EnergyTable from '../../tables/energyTable'
 import AnalyticsCard from '../common/cards/card'
 
 const Analytics: FC = (): ReactElement => {
-  const { data, isFetching, refetch } = useGetEnergyQuery()
+  const { data, isFetching, refetch } = useGetEnergyQuery({})
   const {
     data: monthlyData,
     isFetching: fetching,
     refetch: refechMonthly,
-  } = useGetEnergyFor30DaysQuery()
+  } = useGetEnergyFor30DaysQuery({})
 
   const {
     data: yearlyData,

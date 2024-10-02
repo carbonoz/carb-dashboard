@@ -1,12 +1,13 @@
 import { Dropdown } from 'antd'
 import { FC, ReactElement } from 'react'
 import { FaRegUser } from 'react-icons/fa'
-import { GiWindTurbine } from 'react-icons/gi'
 import { IoIosLogOut } from 'react-icons/io'
 import { MdKeyboardArrowDown, MdMenuOpen } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
+import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
 import { AdditionalInfoInt } from '../../../lib/api/user/userEndPoints'
+import CustomImage from '../image/customImage'
 
 interface props {
   data: AdditionalInfoInt | undefined
@@ -45,7 +46,7 @@ const NavBar: FC<props> = ({ data, additional }): ReactElement => {
     >
       {additional ? (
         <div className='flex flex-row items-center gap-5'>
-          <GiWindTurbine size={28} className='text-[#C1CF16] font-bold' />
+          <CustomImage src={Logo} width={28} className=' rounded-lg ' />
           <p>Welcome</p>
         </div>
       ) : (
