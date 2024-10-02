@@ -35,7 +35,6 @@ const EnergyChart: FC = (): ReactElement => {
     setTo(e)
   }
 
-  console.log({ from }, { to })
 
   const [form] = Form.useForm()
 
