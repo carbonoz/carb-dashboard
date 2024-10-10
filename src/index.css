@@ -112,6 +112,11 @@
   color: white !important;
 }
 
+.copy-button {
+  color: #c1cf16 !important;
+  background-color: transparent !important;
+}
+
 .remove_button {
   background-color: rgb(239, 49, 49) !important;
   color: white !important;
