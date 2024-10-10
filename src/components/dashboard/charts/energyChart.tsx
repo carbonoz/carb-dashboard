@@ -35,12 +35,7 @@ const EnergyChart: FC = (): ReactElement => {
     setTo(e)
   }
 
-
   const [form] = Form.useForm()
-
-  if (isFetching || fetching) {
-    return <GeneralContentLoader />
-  }
 
   return (
     <section className='w-[100%]'>
@@ -70,16 +65,20 @@ const EnergyChart: FC = (): ReactElement => {
             </Row>
           </Form>
         </section>
-        <section className='flex flex-col'>
-          <div>
-            <h2 className='text-lg font-bold mb-5'>Last 7 Days</h2>
-            <Last7DaysGraph data={data?.data || []} />
-          </div>
-          <div>
-            <h2 className='text-lg font-bold mb-5'>Last 30 Days</h2>
-            <Last30DaysGraph data={monthlyData?.data || []} />
-          </div>
-        </section>
+        {isFetching || fetching ? (
+          <GeneralContentLoader />
+        ) : (
+          <section className='flex flex-col'>
+            <div>
+              <h2 className='text-lg font-bold mb-5'>Last 7 Days</h2>
+              <Last7DaysGraph data={data?.data || []} />
+            </div>
+            <div>
+              <h2 className='text-lg font-bold mb-5'>Last 30 Days</h2>
+              <Last30DaysGraph data={monthlyData?.data || []} />
+            </div>
+          </section>
+        )}
       </div>
     </section>
   )

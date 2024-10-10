@@ -183,6 +183,18 @@ export interface ResetPasswordDto {
   password: string
 }
 
+export interface CredentialsResponse {
+  message: string
+  data: CredentialsInterface
+}
+
+export interface CredentialsInterface {
+  id: string
+  userId: string
+  clientId: string
+  clientSecret: string
+}
+
 const userEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getAssets: builder.query<AssetResponse, void>({
@@ -284,11 +296,16 @@ const userEndpoints = baseAPI.injectEndpoints({
       }),
     }),
     resetPassword: builder.mutation<unknown, ResetPasswordDto>({
-      invalidatesTags: ['Certification'],
       query: (DTO) => ({
         url: `user/reset-password`,
         method: 'PATCH',
         body: DTO,
+      }),
+    }),
+    getCredentials: builder.query<CredentialsResponse, void>({
+      query: () => ({
+        url: `user/credentials`,
+        method: 'GET',
       }),
     }),
   }),
@@ -309,4 +326,5 @@ export const {
   useAddCertificateMutation,
   useGetCertificateQuery,
   useResetPasswordMutation,
+  useGetCredentialsQuery,
 } = userEndpoints

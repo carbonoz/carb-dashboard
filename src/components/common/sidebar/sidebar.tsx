@@ -76,14 +76,14 @@ const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
               url='/ds/'
             />
             <SidebarItem
-              icon={<CiSettings size={30} />}
-              text='Settings'
-              url='/ds/settings'
-            />
-            <SidebarItem
               icon={<FiUser size={30} />}
               text='Profile'
               url='/ds/profile'
+            />
+            <SidebarItem
+              icon={<CiSettings size={30} />}
+              text='Settings'
+              url='/ds/settings'
             />
             <SidebarItem
               icon={<FaChartPie size={30} />}
