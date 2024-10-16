@@ -2,11 +2,13 @@
 import { Col, Form, Row } from 'antd'
 import { FC, ReactElement, useEffect, useState } from 'react'
 import {
+  useGetEnergyFor12MonthsQuery,
   useGetEnergyFor30DaysQuery,
   useGetEnergyQuery,
 } from '../../../lib/api/Analytics/analyticsEndpoints'
 import CustomInput from '../../common/input/customInput'
 import { GeneralContentLoader } from '../../common/loader/loader'
+import Last12MonthGraph from './12months/PastTwelveMonth'
 import Last30DaysGraph from './30days/PastThirtyDays'
 import Last7DaysGraph from './7days/PastSevenDays'
 
@@ -23,10 +25,17 @@ const EnergyChart: FC = (): ReactElement => {
     refetch: refechMonthly,
   } = useGetEnergyFor30DaysQuery(from && to ? { from, to } : {})
 
+  const {
+    data: yearlyData,
+    isFetching: yearlyFetching,
+    refetch: yearlyRefetch,
+  } = useGetEnergyFor12MonthsQuery()
+
   useEffect(() => {
     refetch()
     refechMonthly()
-  }, [refetch, refechMonthly])
+    yearlyRefetch()
+  }, [refetch, refechMonthly, yearlyRefetch])
 
   function onChangeFromDate(e: any) {
     setFrom(e)
@@ -65,7 +74,7 @@ const EnergyChart: FC = (): ReactElement => {
             </Row>
           </Form>
         </section>
-        {isFetching || fetching ? (
+        {isFetching || fetching || yearlyFetching ? (
           <GeneralContentLoader />
         ) : (
           <section className='flex flex-col'>
@@ -76,6 +85,10 @@ const EnergyChart: FC = (): ReactElement => {
             <div>
               <h2 className='text-lg font-bold mb-5'>Last 30 Days</h2>
               <Last30DaysGraph data={monthlyData?.data || []} />
+            </div>
+            <div>
+              <h2 className='text-lg font-bold mb-5'>Last 12 Months</h2>
+              <Last12MonthGraph data={yearlyData?.data || []} />
             </div>
           </section>
         )}
