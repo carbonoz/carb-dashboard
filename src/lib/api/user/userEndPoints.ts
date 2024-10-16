@@ -93,13 +93,13 @@ export interface AssetDTO {
 }
 
 export interface additionalInfoInt {
-  firstName: string
-  lastName: string
-  street: string
-  city: string
-  telephone: string
-  customerLanguage: string
-  customerTimezone: string
+  firstName?: string
+  lastName?: string
+  street?: string
+  city?: string
+  telephone?: string
+  customerLanguage?: string
+  customerTimezone?: string
 }
 
 export interface getPortsResponse {
@@ -228,6 +228,14 @@ const userEndpoints = baseAPI.injectEndpoints({
         body: DTO,
       }),
     }),
+    editAdditionalInfo: builder.mutation<unknown, additionalInfoInt>({
+      invalidatesTags: ['Info'],
+      query: (DTO) => ({
+        url: `user/edit-user`,
+        method: 'PATCH',
+        body: DTO,
+      }),
+    }),
     uploadRedexFile: builder.mutation<unknown, FormData>({
       invalidatesTags: ['File'],
       query: (DTO) => ({
@@ -327,4 +335,5 @@ export const {
   useGetCertificateQuery,
   useResetPasswordMutation,
   useGetCredentialsQuery,
+  useEditAdditionalInfoMutation,
 } = userEndpoints
