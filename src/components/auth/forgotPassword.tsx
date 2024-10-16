@@ -33,9 +33,7 @@ const ForgotPassword = () => {
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background '>
       <div className='xl:w-[40%] 2xl:w-[32%] lg:w-[40%] 2xl:h-[650px] xl:h-[600px] lg:h-[580px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'>
-        <h2 className='ml-7 -mt-[60px] text-white  font-bold text-[30px]'>
-          Welcome to
-        </h2>
+        <h2 className='ml-7 -mt-[60px] text-white  font-bold text-[30px]'></h2>
       </div>
       <div className='p-4 xl:w-[40%] 2xl:w-[32%]  w-[80%] lg:w-[40%]  h-fit 2xl:h-[650px] xl:h-[600px] lg:h-[580px] bg-white    shadow-md sm:p-6 lg:p-8'>
         <Form

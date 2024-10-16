@@ -124,7 +124,7 @@ export const DashboardRoutes: FC = (): ReactElement => {
     stepsRefetch()
   }, [refetch, refetchData, refetchBoxes, refetchPartners, stepsRefetch])
 
-  if (isFetching || isFetchingSteps || fetchingBoxes || isSystemFetching) {
+  if (isFetchingSteps || fetchingBoxes || isSystemFetching) {
     return <GeneralContentLoader />
   }
 

@@ -12,7 +12,7 @@ const Settings: FC = (): ReactElement => {
   const [showClientSecret, setShowClientSecret] = useState(false)
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text)
+    navigator?.clipboard?.writeText(text)
     Notify({
       message: 'Success',
       description: 'Text copied successfully',
