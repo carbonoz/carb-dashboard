@@ -78,6 +78,7 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
       device.OwnersDeclarationStartDate = dayjs(
         device.OwnersDeclarationStartDate
       ).format('YYYY-MM-DD')
+      device.Inverters = device.Inverters.flatMap((item) => item || [])
     })
     handleAPIRequests({
       request: addDevice,
@@ -624,7 +625,7 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                                           </span>
                                         </span>
                                       }
-                                      name={[name, 'RemoteInvId']}
+                                      name={[name, indexTwo, 'RemoteInvId']}
                                       {...restField}
                                       rules={[
                                         {
@@ -650,7 +651,11 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                                           </span>
                                         </span>
                                       }
-                                      name={[name, 'ElectronicSerialNumber']}
+                                      name={[
+                                        name,
+                                        indexTwo,
+                                        'ElectronicSerialNumber',
+                                      ]}
                                       {...restField}
                                       rules={[
                                         {
@@ -676,7 +681,7 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                                           </span>
                                         </span>
                                       }
-                                      name={[name, 'BrandCode']}
+                                      name={[name, indexTwo, 'BrandCode']}
                                       {...restField}
                                       rules={[
                                         {
@@ -702,7 +707,11 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                                           </span>
                                         </span>
                                       }
-                                      name={[name, 'InstalledCapacity']}
+                                      name={[
+                                        name,
+                                        indexTwo,
+                                        'InstalledCapacity',
+                                      ]}
                                       {...restField}
                                       rules={[
                                         {
