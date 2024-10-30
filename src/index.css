@@ -149,7 +149,7 @@
   pointer-events: none;
 }
 
-/*stepper*/
+/*stepper steps*/
 
 /* Override Ant Design steps styles */
 .ant-steps-item-active .ant-steps-item-icon {
