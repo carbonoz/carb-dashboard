@@ -13,6 +13,8 @@ import {
 import CustomButton from '../common/button/button'
 import CustomInput from '../common/input/customInput'
 import Notify from '../common/notification/notification'
+import CustomImage from '../common/image/customImage'
+import logo from '../../assets/1.jpg'
 
 interface signupDto {
   email: string
@@ -65,19 +67,30 @@ const Signup: FC = (): ReactElement => {
 
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background'>
-      <div className='xl:w-[40%] 2xl:w-[32%] lg:w-[40%] 2xl:h-[650px] xl:h-[620px] lg:h-[600px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-signup'>
-        <h2 className='ml-7 -mt-[60px] text-white  font-bold text-[30px]'>
-          Welcome to
-        </h2>
-      </div>
-      <div className='p-4 xl:w-[40%] 2xl:w-[32%]  w-[80%] lg:w-[40%]  h-fit 2xl:h-[650px] xl:h-[620px] lg:h-[600px] bg-white    shadow-md sm:p-6 lg:p-8'>
+      <div className='xl:w-[40%] 2xl:w-[32%]  md:w-[45%] lg:w-[45%] 2xl:h-[650px] sm:h-[600px] md:h-[600px] xl:h-[650px] lg:h-[650px] hidden sm:flex md:flex lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-signup'></div>
+      <div className='p-4 xl:w-[40%] 2xl:w-[32%]   md:w-[45%]   w-[80%] lg:w-[45%] sm:h-[600px] md:h-[600px]  h-fit 2xl:h-[650px] xl:h-[650px] lg:h-[650px] bg-white    shadow-md sm:p-6 lg:p-8'>
+        <section className='lg:hidden flex justify-center'>
+          <div className='flex lg:flex-row md:flex-row flex-col lg:gap-5 md:gap-5 gap-1 items-center '>
+            <CustomImage
+              src={logo}
+              alt='logo'
+              className=' rounded-xl w-full'
+              width={50}
+              height={50}
+              style={{ objectFit: 'cover' }}
+            />
+            <h5 className='lg:text-xl text-base font-bold text-center text-black lg:hidden block'>
+              Create a account
+            </h5>
+          </div>
+        </section>
         <Form
           className='space-y-12'
           name='sign-up-form'
           form={form}
           onFinish={onFinish}
         >
-          <h5 className='text-xl font-bold text-center text-black'>
+          <h5 className='lg:text-xl text-base font-bold text-center text-black hidden lg:block'>
             Create a account
           </h5>
           <Row className='w-[100%]'>

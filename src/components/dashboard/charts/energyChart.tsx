@@ -53,7 +53,7 @@ const EnergyChart: FC = (): ReactElement => {
           <h1 className=' text-xl text-[#C1CF16] font-bold'>Energy graphs</h1>
           <Form className='space-y-12' name='user-info-form' form={form}>
             <Row className='w-[100%]  flex flex-row gap-5'>
-              <Col className='gutter-row mt-2 w-[25%]'>
+              <Col className='gutter-row mt-2 lg:w-[25%] w-[100%]'>
                 <CustomInput
                   placeholder='From'
                   label='From'
@@ -62,7 +62,7 @@ const EnergyChart: FC = (): ReactElement => {
                   onChange={onChangeFromDate}
                 />
               </Col>
-              <Col className='gutter-row mt-2 w-[25%]'>
+              <Col className='gutter-row mt-2 lg:w-[25%] w-[100%]'>
                 <CustomInput
                   placeholder='To'
                   label='To'

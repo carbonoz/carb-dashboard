@@ -71,9 +71,9 @@ const Analytics: FC = (): ReactElement => {
 
   return (
     <section className='w-[100%]'>
-      <div className=''>
+      <div className='w-[100%]'>
         <h1 className=' text-xl mb-10 text-[#C1CF16] font-bold'>Analytics</h1>
-        <section className='grid grid-cols-3 mb-10 w-[100%] gap-2'>
+        <section className='grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 mb-10 w-[100%] gap-2'>
           <AnalyticsCard
             data={totalLoadPower?.toFixed(1)}
             title='For past 7 days'

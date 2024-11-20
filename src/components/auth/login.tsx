@@ -2,6 +2,7 @@
 import { Col, Form, Row } from 'antd'
 import { FC, ReactElement } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import logo from '../../assets/1.jpg'
 import handleAPIRequests from '../../helpers/handleApiRequest'
 import { setToLocal } from '../../helpers/handleStorage'
 import requiredField from '../../helpers/requiredField'
@@ -11,6 +12,7 @@ import {
   useLoginMutation,
 } from '../../lib/api/Auth/authEndpoints'
 import CustomButton from '../common/button/button'
+import CustomImage from '../common/image/customImage'
 import CustomInput from '../common/input/customInput'
 import Notify from '../common/notification/notification'
 
@@ -46,15 +48,32 @@ const Login: FC = (): ReactElement => {
   }
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background '>
-      <div className='xl:w-[40%] 2xl:w-[32%] lg:w-[40%] 2xl:h-[650px] xl:h-[600px] lg:h-[580px] hidden lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'></div>
-      <div className='p-4 xl:w-[40%] 2xl:w-[32%]  w-[80%] lg:w-[40%]  h-fit 2xl:h-[650px] xl:h-[600px] lg:h-[580px] bg-white    shadow-md sm:p-6 lg:p-8'>
+      <div className='xl:w-[40%] 2xl:w-[32%]  md:w-[45%] lg:w-[45%] 2xl:h-[650px] sm:h-[600px] md:h-[600px] xl:h-[650px] lg:h-[650px] hidden sm:flex md:flex lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'></div>
+      <div className='p-4 xl:w-[40%] 2xl:w-[32%]   md:w-[45%]   w-[80%] lg:w-[45%] sm:h-[600px] md:h-[600px]  h-fit 2xl:h-[650px] xl:h-[650px] lg:h-[650px] bg-white    shadow-md sm:p-6 lg:p-8'>
+        <section className='lg:hidden flex justify-center'>
+          <div className='flex lg:flex-row md:flex-row flex-col lg:gap-5 md:gap-5 gap-1 items-center '>
+            <CustomImage
+              src={logo}
+              alt='logo'
+              className=' rounded-xl w-full'
+              width={50}
+              height={50}
+              style={{ objectFit: 'cover' }}
+            />
+            <h5 className='lg:text-xl text-base font-bold text-center text-black lg:hidden block'>
+              Log in
+            </h5>
+          </div>
+        </section>
+        <h5 className='lg:text-xl text-base font-bold text-center text-black hidden lg:block '>
+          Log in
+        </h5>
         <Form
-          className='space-y-12'
+          className='space-y-12 mt-5'
           name='login-form'
           form={form}
           onFinish={onFinish}
         >
-          <h5 className='text-xl font-bold text-center text-black'>Log in</h5>
           <Row className='w-[100%]'>
             <Col className='gutter-row mt-2 w-full'>
               <CustomInput

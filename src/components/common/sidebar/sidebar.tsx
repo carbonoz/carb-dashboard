@@ -16,10 +16,13 @@ interface SidebarItemProps {
   text: string
   url: string
   isLogout?: boolean
+  setDrawerVisible?: (value: boolean) => void
 }
 
 interface SideBarProps {
   boxesData?: Array<boxInterface> | undefined
+  isDrawer?: boolean
+  setDrawerVisible?: (value: boolean) => void
 }
 
 const SidebarItem: FC<SidebarItemProps> = ({
@@ -27,6 +30,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
   text,
   url,
   isLogout,
+  setDrawerVisible,
 }): ReactElement => {
   const navigate = useNavigate()
   const isMatch = useMatch(url)
@@ -35,6 +39,7 @@ const SidebarItem: FC<SidebarItemProps> = ({
     if (isLogout) {
       removeFromLocal('token')
     }
+    setDrawerVisible && setDrawerVisible(false)
     navigate(url)
   }
 
@@ -59,10 +64,26 @@ const SidebarItem: FC<SidebarItemProps> = ({
   )
 }
 
-const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
+const Sidebar: FC<SideBarProps> = ({
+  boxesData,
+  isDrawer,
+  setDrawerVisible,
+}): ReactElement => {
+  const navigate = useNavigate()
+  function goToDashboard() {
+    navigate('/ds/')
+  }
+
   return (
-    <section className='w-[300px] h-[100%] flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100 relative'>
-      <div className='flex flex-row items-center gap-5 mb-8'>
+    <section
+      className={`lg:w-[300px] 2xl:w-[300px] ${
+        isDrawer ? 'flex w-[300x]' : 'hidden'
+      }     h-[100%] lg:flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100 relative`}
+    >
+      <div
+        className='flex flex-row items-center gap-5 mb-8 cursor-pointer'
+        onClick={goToDashboard}
+      >
         <CustomImage src={Logo} width={50} className=' rounded-lg ' />
         <h1 className='text-2xl  text-[#C1CF16] font-bold'>CARBONOZ</h1>
       </div>
@@ -73,6 +94,7 @@ const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
               icon={<MdDeviceHub size={30} />}
               text='Configurations'
               url='/ds/devices'
+              setDrawerVisible={setDrawerVisible}
             />
           </>
         ) : (
@@ -81,21 +103,25 @@ const Sidebar: FC<SideBarProps> = ({ boxesData }): ReactElement => {
               icon={<IoHomeOutline size={30} />}
               text='Dashboard'
               url='/ds/'
+              setDrawerVisible={setDrawerVisible}
             />
             <SidebarItem
               icon={<FiUser size={30} />}
               text='Profile'
               url='/ds/profile'
+              setDrawerVisible={setDrawerVisible}
             />
             <SidebarItem
               icon={<CiSettings size={30} />}
               text='Settings'
               url='/ds/settings'
+              setDrawerVisible={setDrawerVisible}
             />
             <SidebarItem
               icon={<FaChartPie size={30} />}
               text='Charts'
               url='/ds/charts'
+              setDrawerVisible={setDrawerVisible}
             />
           </>
         )}
