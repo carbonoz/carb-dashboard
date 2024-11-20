@@ -80,8 +80,8 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
           onFinish={onFinish}
         />
       </CustomModal>
-      <section className=''>
-        <div className='border border-gray-300  rounded-2xl'>
+      <section className='w-[100%]'>
+        <div className='border border-gray-300  rounded-2xl w-[100%]'>
           <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
             <h1 className=' text-xl  text-[#C1CF16] font-bold  rounded-t-2xl '>
               User information
@@ -230,7 +230,7 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
               </div>
             </section>
 
-            <section className='flex flex-row items-center gap-5'>
+            <section className='grid xl:grid-cols-3  lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 w-[100%]  gap-1'>
               <div className='mt-5'>
                 <p className='font-bold'>Building Photo:</p>
                 <CustomImage

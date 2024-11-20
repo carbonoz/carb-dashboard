@@ -41,7 +41,7 @@ const EnergyTable: FC<Props> = ({
 
   return (
     <Table
-      className='data_table'
+      className='data_table border-collapse w-full'
       dataSource={data}
       rowKey={(record) => record?.id}
       rowClassName='shadow'
@@ -58,6 +58,11 @@ const EnergyTable: FC<Props> = ({
             {dayjs(record?.date).tz(timeZone).format(dateFormat)}
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Date',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Load Power'
@@ -67,6 +72,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record.loadPower).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Load Power',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Pv Power'
@@ -76,6 +86,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record?.pvPower).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Pv Power',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Grid In'
@@ -85,6 +100,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record?.gridIn).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Grid In',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Grid Out'
@@ -94,6 +114,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record?.gridOut).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Grid Out',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Battery Charged'
@@ -103,6 +128,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record?.batteryCharged).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Battery Charged',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
       <Column
         title='Battery Discharged'
@@ -112,6 +142,11 @@ const EnergyTable: FC<Props> = ({
             {parseFloat(record?.batteryDischarged).toFixed(1)} Kwh
           </span>
         )}
+        onCell={() =>
+          ({
+            'data-label': 'Battery Discharged',
+          } as React.TdHTMLAttributes<HTMLTableCellElement>)
+        }
       />
     </Table>
   )

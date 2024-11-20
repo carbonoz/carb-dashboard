@@ -178,3 +178,43 @@
 .ant-steps-item-finish .ant-steps-item-icon .anticon {
   color: #1c2834 !important;
 }
+
+/* antd -table */
+
+@media (max-width: 640px) {
+  .data_table table {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+  }
+
+  .data_table thead {
+    display: none !important;
+  }
+
+  .data_table tbody,
+  .data_table tr {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .data_table td {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 0.5rem !important;
+    border: 1px solid #eaeaea !important;
+  }
+
+  .data_table td::before {
+    content: attr(data-label);
+    font-weight: bold !important;
+    margin-right: 0.5rem !important;
+  }
+}
+
+/* antd drawer */
+
+.custom-drawer .ant-drawer-body {
+  background-color: #1c2834 !important;
+}

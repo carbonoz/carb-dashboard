@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Layout } from 'antd'
 import { FC, ReactElement, useEffect, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import ContentWrapper from '../components/common/contentwrapper/contentwrapper'
@@ -129,11 +128,11 @@ export const DashboardRoutes: FC = (): ReactElement => {
   }
 
   return (
-    <Layout className='h-[100vh] bg-white overflow-y-hidden'>
-      <div className='flex h-[100%]'>
+    <div className='h-[100vh] bg-white overflow-y-hidden w-[100%]'>
+      <div className='flex h-[100%] w-[100%] '>
         <Sidebar boxesData={boxesData?.data} />
-        <div className='flex-1 h-[100%] flex flex-col  mb-16 '>
-          <NavBar data={data?.data} />
+        <div className='flex-1 h-[100%] flex flex-col  mb-16 w-[100%] '>
+          <NavBar data={data?.data} boxesData={boxesData?.data} />
           <ContentWrapper>
             <Routes>
               <Route path='/' element={<Analytics />} />
@@ -162,7 +161,7 @@ export const DashboardRoutes: FC = (): ReactElement => {
           </ContentWrapper>
         </div>
       </div>
-    </Layout>
+    </div>
   )
 }
 
