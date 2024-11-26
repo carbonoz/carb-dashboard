@@ -1,4 +1,4 @@
-import { Col, Form, Row, FormInstance } from 'antd'
+import { Col, Form, FormInstance, Row } from 'antd'
 import { FC, useEffect } from 'react'
 import { language, timezones } from '../../config/constant'
 import { useWindowSize } from '../../helpers/interfaceSize'
