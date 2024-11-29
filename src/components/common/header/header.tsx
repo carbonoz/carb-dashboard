@@ -115,7 +115,7 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
             />
           </>
         )}
-        {darkMode ? (
+        {!additional && darkMode ? (
           <GoSun
             size={25}
             color='gray'
