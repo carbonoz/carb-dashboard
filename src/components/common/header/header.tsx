@@ -1,13 +1,18 @@
 import { Drawer, Dropdown } from 'antd'
-import { FC, ReactElement, useState } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
+import { AiOutlineMoon } from 'react-icons/ai'
 import { FaRegUser } from 'react-icons/fa'
+import { GoSun } from 'react-icons/go'
 import { IoIosLogOut } from 'react-icons/io'
 import { MdKeyboardArrowDown, MdMenuOpen } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
 import { AdditionalInfoInt } from '../../../lib/api/user/userEndPoints'
+import { RootState } from '../../../lib/redux/store'
+import { toggleDarkMode } from '../../../lib/redux/themeSlice'
 import CustomImage from '../image/customImage'
 import Sidebar from '../sidebar/sidebar'
 
@@ -28,6 +33,26 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
   const handleLogout = (): void => {
     removeFromLocal('token')
     navigate('/')
+  }
+
+  const dispatch = useDispatch()
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    if (savedDarkMode !== darkMode) {
+      dispatch(toggleDarkMode())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode.toString())
+    document.documentElement.classList.toggle('dark', darkMode)
+  }, [darkMode])
+
+  const handleToggle = () => {
+    dispatch(toggleDarkMode())
   }
 
   const ProfileDropdown = (
@@ -70,7 +95,7 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
       <nav
         className={`p-5 ${
           additional ? 'bg-[#1C2834] text-white' : 'bg-white text-black'
-        }  flex   justify-between items-center border-b border-gray-300`}
+        }  flex   justify-between items-center border-b border-gray-300 dark:border-gray-600  dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         {additional ? (
           <div className='flex flex-row items-center gap-5'>
@@ -89,6 +114,21 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
               className='text-[#C1CF16] cursor-pointer lg:block hidden'
             />
           </>
+        )}
+        {darkMode ? (
+          <GoSun
+            size={25}
+            color='gray'
+            onClick={handleToggle}
+            className='cursor-pointer'
+          />
+        ) : (
+          <AiOutlineMoon
+            size={25}
+            color='gray'
+            onClick={handleToggle}
+            className='cursor-pointer'
+          />
         )}
         <Dropdown overlay={ProfileDropdown} trigger={['click']}>
           <div className='flex items-center gap-2 lg:gap-4 cursor-pointer hover:bg-inherit hover:text-[#C1CF16]  p-2 px-2 rounded'>

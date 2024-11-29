@@ -81,7 +81,7 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
         />
       </CustomModal>
       <section className='w-[100%]'>
-        <div className='border border-gray-300  rounded-2xl w-[100%]'>
+        <div className='border border-gray-300  dark:border-gray-600 rounded-2xl w-[100%]'>
           <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
             <h1 className=' text-xl  text-[#C1CF16] font-bold  rounded-t-2xl '>
               User information
@@ -93,60 +93,81 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
               onClick={() => setIsVisible(true)}
             />
           </div>
-          <div className='border-t-[1px] border-gray-300 ' />
-          <div className='  p-5'>
+          <div className='border-t-[1px] border-gray-300  dark:border-gray-600 ' />
+          <div className='p-5 '>
             <div className='flex flex-row items-center gap-5 mb-1 '>
               <p className='w-[150px] font-bold'>First name</p>
-              <p className='text-black'> {additionalData?.firstName} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.firstName}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 mb-1 '>
               <p className='w-[150px] font-bold'>Last name</p>
-              <p className='text-black'> {additionalData?.lastName} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.lastName}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 mb-1 '>
               <p className='w-[150px] font-bold'>Street</p>
-              <p className='text-black'> {additionalData?.street} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.street}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 mb-1 '>
               <p className='w-[150px] font-bold'>Telephone</p>
-              <p className='text-black'> {additionalData?.telephone} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.telephone}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 mb-1 '>
               <p className='w-[150px] font-bold'>City</p>
-              <p className='text-black'> {additionalData?.city} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.city}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 '>
               <p className='w-[150px] font-bold'>Language</p>
-              <p className='text-black'> {additionalData?.customerLanguage} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.customerLanguage}{' '}
+              </p>
             </div>
             <div className='flex flex-row items-center gap-5 '>
               <p className='w-[150px] font-bold'>Timezone</p>
-              <p className='text-black'> {additionalData?.customerTimezone} </p>
+              <p className='text-black dark:text-white'>
+                {' '}
+                {additionalData?.customerTimezone}{' '}
+              </p>
             </div>
           </div>
         </div>
-        <div className='border mt-8 border-gray-300  rounded-2xl'>
+        <div className='border mt-8 border-gray-300  dark:border-gray-600 rounded-2xl'>
           <h1 className=' text-xl  text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
             Device
           </h1>
-          <div className='border-t-[1px] border-gray-300 ' />
+          <div className='border-t-[1px] border-gray-300  dark:border-gray-600 ' />
           <div className=' p-5 flex 3xl:flex-row  2xl:flex-row  xl:flex-col lg:flex-col md:flex-col lg:gap-10'>
             <section>
               <div>
                 <p className='  flex  flex-row items-center'>
-                  <span className='text-black font-bold w-[150px] '>
+                  <span className='text-black dark:text-white font-bold w-[150px] '>
                     Mqtt host :{' '}
                   </span>
                   <span>{data?.data[0]?.port}</span>
                 </p>
                 <p className='  flex  flex-row items-center mt-5'>
-                  <span className='text-black font-bold w-[150px] '>
+                  <span className='text-black dark:text-white font-bold w-[150px] '>
                     Mqtt port :{' '}
                   </span>
                   <span>{data?.data[0]?.mqttPort}</span>
                 </p>
                 <p className='  flex  flex-row items-center mt-5'>
-                  <span className='text-black font-bold w-[150px] '>
+                  <span className='text-black dark:text-white font-bold w-[150px] '>
                     Mqtt Username :{' '}
                   </span>
                   <span>{data?.data[0]?.mqttUsername}</span>
@@ -155,54 +176,70 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
             </section>
           </div>
         </div>
-        <div className='mt-8 border border-gray-300 rounded-2xl'>
+        <div className='mt-8 border border-gray-300  dark:border-gray-600 rounded-2xl'>
           <h1 className='  text-xl  text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
             Assets information
           </h1>
-          <div className='border-t-[1px] border-gray-300 ' />
+          <div className='border-t-[1px] border-gray-300   dark:border-gray-600' />
           <div className='p-5'>
             <section className='mt-5'>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Asset Name</p>
-                <p className='text-black'>{assetsData?.data?.assetName}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.assetName}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Asset Owner</p>
-                <p className='text-black'>{assetsData?.data?.assetOwner}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.assetOwner}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Country</p>
-                <p className='text-black'>{assetsData?.data?.country}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.country}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Capacity (kWp)</p>
-                <p className='text-black'>{assetsData?.data?.capacityKwp}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.capacityKwp}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Fuel Type</p>
-                <p className='text-black'>{assetsData?.data?.fuelType}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.fuelType}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Panel Brand</p>
-                <p className='text-black'>{assetsData?.data?.panelBrand}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.panelBrand}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Inverter Brand</p>
-                <p className='text-black'>{assetsData?.data?.inverterBrand}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.inverterBrand}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Amount of Inverters</p>
-                <p className='text-black'>
+                <p className='text-black dark:text-white'>
                   {assetsData?.data?.amountOfInverters}
                 </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Amount of Panels</p>
-                <p className='text-black'>{assetsData?.data?.amountOfPanels}</p>
+                <p className='text-black dark:text-white'>
+                  {assetsData?.data?.amountOfPanels}
+                </p>
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Battery Serial Numbers</p>
-                <p className='text-black'>
+                <p className='text-black dark:text-white'>
                   {assetsData?.data?.BatterySerialNumber1},{' '}
                   {assetsData?.data?.BatterySerialNumber2},{' '}
                   {assetsData?.data?.BatterySerialNumber3}
@@ -210,7 +247,7 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Inverter Serial Numbers</p>
-                <p className='text-black'>
+                <p className='text-black dark:text-white'>
                   {assetsData?.data?.InverterSerialnumber1},{' '}
                   {assetsData?.data?.InverterSerialnumber2},{' '}
                   {assetsData?.data?.InverterSerialnumber3}
@@ -218,13 +255,13 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
               </div>
               <div className='flex flex-row items-center gap-5 mb-1'>
                 <p className='w-[250px] font-bold'>Monitoring System</p>
-                <p className='text-black'>
+                <p className='text-black dark:text-white'>
                   {assetsData?.data?.monitoringSystemName}
                 </p>
               </div>
               <div className='flex flex-row items-center gap-5'>
                 <p className='w-[250px] font-bold'>Monitoring URL</p>
-                <p className='text-black'>
+                <p className='text-black dark:text-white'>
                   {assetsData?.data?.monitoringSystemURL}
                 </p>
               </div>
