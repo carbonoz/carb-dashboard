@@ -102,6 +102,8 @@ This section ensures a comprehensive understanding of the necessary fields for a
 25. `Battery Serial Number 2`:Serial number of the second battery used in the system (if applicable).
 26. `Battery Serial Number 3`:Serial number of the third battery used in the system (if applicable).
 27. `Inverter Serial Number 1`:Serial number of the first inverter used in the system.
+28. `Inverter Serial Number 2`:Serial number of the second inverter used in the system (if applicable).
+29. `Inverter Serial Number 3`:Serial number of the third inverter used in the system (if applicable).
 
 ### User information Registration
 
@@ -150,7 +152,7 @@ This section allows for a comprehensive understanding of the project's purpose, 
 
 ##### Important Notes
 
-All fields marked with \* in the application are mandatory.
+All fields marked with `\*` in the application are mandatory.
 Ensure that all data entries comply with the required formats and standards (e.g., ISO 3166 for country codes, valid decimal formats for geographical coordinates).
 Proper and complete information is crucial for the successful registration of devices and accurate energy analytics.
 By adhering to these guidelines, you ensure the effective registration and operation of your devices within the CARBONOZ ecosystem.

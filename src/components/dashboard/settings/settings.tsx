@@ -25,28 +25,32 @@ const Settings: FC = (): ReactElement => {
 
   return (
     <section>
-      <div className='border border-gray-300 rounded-2xl'>
+      <div className='border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='text-xl text-[#c1cf16] font-bold p-5 bg-[#1C2834] rounded-t-2xl'>
           Settings
         </h1>
-        <div className='border-t-[1px] border-gray-300' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600' />
         <div className='mt-5 flex flex-row items-center gap-5 text-base p-5'>
-          <p className='text-black font-semibold'>Topic name:</p>
+          <p className='text-black font-semibold dark:text-white'>
+            Topic name:
+          </p>
           <p>{data?.data?.topicName}</p>
         </div>
       </div>
 
       <div className='mt-10' />
 
-      <div className='border border-gray-300 rounded-2xl'>
+      <div className='border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='text-xl text-[#c1cf16] font-bold p-5 bg-[#1C2834] rounded-t-2xl'>
           Credentials
         </h1>
-        <div className='border-t-[1px] border-gray-300' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600' />
 
         <div className='mt-5 p-5'>
           <div className='flex flex-row items-center justify-between gap-5'>
-            <p className='text-black font-semibold'>Client ID:</p>
+            <p className='text-black font-semibold dark:text-white'>
+              Client ID:
+            </p>
             <div className='flex items-center gap-3'>
               <p className='font-mono'>{credentials?.data?.clientId}</p>
               <FiCopy
@@ -58,7 +62,9 @@ const Settings: FC = (): ReactElement => {
           </div>
 
           <div className='flex flex-row items-center justify-between gap-5 mt-5'>
-            <p className='text-black font-semibold'>Client Secret:</p>
+            <p className='text-black font-semibold dark:text-white'>
+              Client Secret:
+            </p>
             <div className='flex items-center gap-3'>
               <p className='font-mono'>
                 {showClientSecret

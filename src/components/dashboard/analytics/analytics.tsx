@@ -88,20 +88,20 @@ const Analytics: FC = (): ReactElement => {
           />
         </section>
       </div>
-      <div className='mt-8 border border-gray-300 rounded-2xl'>
+      <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
           Energy information <span className='pl-5'>( Last 7 days)</span>
         </h1>
-        <div className='border-t-[1px] border-gray-300 ' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable data={pastSevenDays} isFetching={isFetching} />
         </div>
       </div>
-      <div className='mt-8 border border-gray-300 rounded-2xl'>
+      <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
           Energy information <span className='pl-5'>( Last 30 days)</span>
         </h1>
-        <div className='border-t-[1px] border-gray-300 ' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
             data={pastThirtyDays}
@@ -111,11 +111,11 @@ const Analytics: FC = (): ReactElement => {
           />
         </div>
       </div>
-      <div className='mt-8 border border-gray-300 rounded-2xl'>
+      <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
           Energy information <span className='pl-5'>( Last 12 months)</span>
         </h1>
-        <div className='border-t-[1px] border-gray-300 ' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
             data={yearlyData?.data}
@@ -124,11 +124,11 @@ const Analytics: FC = (): ReactElement => {
           />
         </div>
       </div>
-      <div className='mt-8 border border-gray-300 rounded-2xl'>
+      <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
           Energy information <span className='pl-5'>( Last 10 years)</span>
         </h1>
-        <div className='border-t-[1px] border-gray-300 ' />
+        <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
             data={decadeData?.data}

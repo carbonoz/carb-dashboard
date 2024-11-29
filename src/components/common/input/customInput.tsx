@@ -1,6 +1,9 @@
 import { Form, Input, Radio, Select, Space } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { ChangeEvent, FC, ReactNode } from 'react'
+import { useSelector } from 'react-redux'
+import { useMatch } from 'react-router-dom'
+import { RootState } from '../../../lib/redux/store'
 
 interface CustomInputProps {
   label?: string
@@ -35,10 +38,17 @@ const CustomInput: FC<CustomInputProps> = ({
   options = [],
   defaultValue = [],
 }) => {
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+  const isMatch = useMatch('/ds/*')
+
   const NormalInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
-        <label className='text-[14px] text-black  mb-2 block font-bold'>
+        <label
+          className={`text-[14px] text-black   mb-2 block font-bold ${
+            isMatch ? ' dark:text-white' : ''
+          } `}
+        >
           {label}
         </label>
       )}
@@ -48,7 +58,9 @@ const CustomInput: FC<CustomInputProps> = ({
           value={value as string}
           type={inputType}
           placeholder={placeholder || 'Type'}
-          className={`rounded h-[60px] ${styles} hover:border-[#c1cf16]`}
+          className={`rounded h-[60px] ${styles} hover:border-[#c1cf16] ${
+            darkMode && isMatch ? 'custom-button' : ''
+          } `}
           disabled={(inputType === 'file' && isLoading) || disabled}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             onChange(inputType === 'file' ? e?.target?.files : e?.target?.value)

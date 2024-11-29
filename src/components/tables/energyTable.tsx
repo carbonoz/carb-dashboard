@@ -3,7 +3,9 @@ import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { FC, ReactElement } from 'react'
+import { useSelector } from 'react-redux'
 import { energyInt } from '../../lib/api/Analytics/analyticsEndpoints'
+import { RootState } from '../../lib/redux/store'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -39,9 +41,13 @@ const EnergyTable: FC<Props> = ({
       dateFormat = 'MMMM DD'
   }
 
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+
   return (
     <Table
-      className='data_table border-collapse w-full'
+      className={`data_table border-collapse w-full ${
+        darkMode ? 'dark-table' : ''
+      } `}
       dataSource={data}
       rowKey={(record) => record?.id}
       rowClassName='shadow'
@@ -53,8 +59,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Date'
         key='date'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column'
         render={(record: energyInt) => (
-          <span className='text-gray-500 font-bold'>
+          <span className='text-gray-500 font-bold '>
             {dayjs(record?.date).tz(timeZone).format(dateFormat)}
           </span>
         )}
@@ -67,8 +74,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Load Power'
         key='loadPower'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record.loadPower).toFixed(1)} Kwh
           </span>
         )}
@@ -81,8 +89,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Pv Power'
         key='pvPower'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record?.pvPower).toFixed(1)} Kwh
           </span>
         )}
@@ -95,8 +104,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Grid In'
         key='gridIn'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record?.gridIn).toFixed(1)} Kwh
           </span>
         )}
@@ -109,8 +119,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Grid Out'
         key='gridOut'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record?.gridOut).toFixed(1)} Kwh
           </span>
         )}
@@ -123,8 +134,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Battery Charged'
         key='batteryCharged'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record?.batteryCharged).toFixed(1)} Kwh
           </span>
         )}
@@ -137,8 +149,9 @@ const EnergyTable: FC<Props> = ({
       <Column
         title='Battery Discharged'
         key='batteryDischarged'
+        className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column '
         render={(record: energyInt) => (
-          <span className='font-bold text-blue-500'>
+          <span className='font-bold text-blue-500 dark:text-gray-100'>
             {parseFloat(record?.batteryDischarged).toFixed(1)} Kwh
           </span>
         )}

@@ -182,39 +182,223 @@
 /* antd -table */
 
 @media (max-width: 640px) {
+  .data_table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .data_table table {
-    display: block !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
+    display: block;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
   }
 
   .data_table thead {
-    display: none !important;
+    display: none;
   }
 
   .data_table tbody,
   .data_table tr {
-    display: block !important;
-    width: 100% !important;
-    margin-bottom: 1rem !important;
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .data_table td {
-    display: flex !important;
-    justify-content: space-between !important;
-    padding: 0.5rem !important;
-    border: 1px solid #eaeaea !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .data_table td::before {
     content: attr(data-label);
-    font-weight: bold !important;
-    margin-right: 0.5rem !important;
+    font-weight: bold;
+    color: #333;
+    flex: 0 0 40%;
+    text-align: left;
+    margin-right: 1rem;
+    white-space: normal;
   }
+
+  .data_table tr {
+    border-bottom: 1px solid #eee;
+  }
+
+  .data_table td:last-child {
+    margin-bottom: 0;
+  }
+
+  .data_table {
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .data_table tbody > tr {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .data_table.dark-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+  }
+
+  .data_table.dark-table table {
+    display: block;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: inherit;
+    background-color: #1e293b !important;
+  }
+
+  .data_table.dark-table thead {
+    display: none;
+  }
+
+  .data_table.dark-table tbody,
+  .data_table.dark-table tr {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .data_table.dark-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid #334155;
+    border-radius: 5px;
+    background-color: #334155;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .data_table.dark-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #cbd5e1;
+    flex: 0 0 40%;
+    text-align: left;
+    margin-right: 1rem;
+    white-space: normal;
+  }
+
+  .data_table.dark-table tr {
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .data_table.dark-table td:last-child {
+    margin-bottom: 0;
+  }
+
+  .data_table.dark-table {
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .data_table.dark-table tbody > tr {
+    margin-bottom: 1rem;
+  }
+}
+
+.data_table.dark-table {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* antd drawer */
 
 .custom-drawer .ant-drawer-body {
   background-color: #1c2834 !important;
+}
+
+.data_table.dark-table {
+  background-color: #1c2834 !important;
+  color: white !important;
+}
+
+.c-column:hover {
+  background-color: none !important;
+}
+
+.dark-table .ant-table-thead > tr > th {
+  background-color: #2b3947 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  border-bottom: 1px solid #1c2834;
+}
+
+/* Target header cell borders */
+.dark-table .ant-table-thead > tr > th {
+  background-color: #2b3947 !important; /* Header background color */
+  color: #ffffff !important; /* Header text color */
+  border-color: #3a4b5c !important; /* Header border color */
+}
+
+/* Target row cell borders */
+.dark-table .ant-table-tbody > tr > td {
+  border-color: #3a4b5c !important; /* Body border color */
+}
+
+/* Optional: Change hover effect in dark mode */
+.dark-table .ant-table-tbody > tr:hover > td {
+  background-color: #2d3e4f !important; /* Row hover background color */
+  border-color: #3a4b5c !important; /* Row hover border color */
+}
+
+/* Style the pagination container */
+.dark-table .ant-pagination {
+  background-color: #1c2834 !important; /* Dark background */
+  padding: 10px; /* Optional padding */
+  border-radius: 5px; /* Optional border radius */
+}
+
+/* Style the pagination text (page numbers) */
+.dark-table .ant-pagination-item {
+  color: #ffffff !important; /* White text for page numbers */
+  background-color: #2b3947 !important; /* Dark background */
+  border-color: #3a4b5c !important; /* Border color */
+}
+
+/* Highlight the active page */
+.dark-table .ant-pagination-item-active {
+  color: #ffffff !important; /* White text for active page */
+  background-color: #4a5b6c !important; /* Highlighted background */
+  border-color: #4a5b6c !important; /* Active page border */
+}
+
+/* Style hover effect for page numbers */
+.dark-table .ant-pagination-item:hover {
+  color: #ffffff !important; /* White text on hover */
+  background-color: #3a4b5c !important; /* Hover background */
+}
+
+/* Style the next/previous buttons */
+.dark-table .ant-pagination-next,
+.dark-table .ant-pagination-prev {
+  color: #ffffff !important; /* White text for navigation buttons */
+  border-color: #3a4b5c !important; /* Button border color */
+}
+
+/* Style the ellipsis (...) */
+.dark-table .ant-pagination-jump-prev .ant-pagination-item-container::after,
+.dark-table .ant-pagination-jump-next .ant-pagination-item-container::after {
+  color: #ffffff !important; /* White text for ellipsis */
+}
+
+/*button*/
+
+.custom-button {
+  color: #ffffff !important;
+  background-color: #2b3947 !important;
+  border: #1c2834 !important;
 }

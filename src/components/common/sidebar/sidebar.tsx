@@ -70,6 +70,7 @@ const Sidebar: FC<SideBarProps> = ({
   setDrawerVisible,
 }): ReactElement => {
   const navigate = useNavigate()
+
   function goToDashboard() {
     navigate('/ds/')
   }
@@ -78,7 +79,7 @@ const Sidebar: FC<SideBarProps> = ({
     <section
       className={`lg:w-[300px] 2xl:w-[300px] ${
         isDrawer ? 'flex w-[300x]' : 'hidden'
-      }     h-[100%] lg:flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100 relative`}
+      }     h-[100%] lg:flex flex-col py-4 px-5 bg-[#1C2834] border-r border-gray-100 dark:border-gray-600 relative`}
     >
       <div
         className='flex flex-row items-center gap-5 mb-8 cursor-pointer'
@@ -126,7 +127,7 @@ const Sidebar: FC<SideBarProps> = ({
           </>
         )}
       </div>
-      <div className=' absolute bottom-0'>
+      <div className='absolute bottom-0'>
         <SidebarItem
           icon={<IoIosLogOut size={30} />}
           text='Log out'
