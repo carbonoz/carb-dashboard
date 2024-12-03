@@ -1,6 +1,8 @@
 import { Col, Modal, Row } from 'antd'
 import { FC, ReactNode } from 'react'
+import { useSelector } from 'react-redux'
 import closeSvg from '../../../assets/close.svg'
+import { RootState } from '../../../lib/redux/store'
 import CustomImage from '../image/customImage'
 
 interface CustomModalProps {
@@ -36,15 +38,17 @@ const CustomModal: FC<CustomModalProps> = ({
     setIsVisible(false)
   }
 
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+
   return (
     <Modal
-      className='sn-modal my-12'
+      className={` my-12  ${darkMode ? 'custom-modal' : ''} `}
       title={
         <div
           className={`flex justify-between items-center px-[42px] pt-12 pb-0`}
         >
           <div>
-            <span className='font-bold block text-[24px] lg:text-[32px] text-dark  mb-2'>
+            <span className='font-bold block text-[24px] lg:text-[32px] text-black dark:text-white  mb-2'>
               {title}
             </span>
 

@@ -59,7 +59,7 @@ const CustomInput: FC<CustomInputProps> = ({
           type={inputType}
           placeholder={placeholder || 'Type'}
           className={`rounded h-[60px] ${styles} hover:border-[#c1cf16] ${
-            darkMode && isMatch ? 'custom-button' : ''
+            darkMode && isMatch ? 'custom-input' : ''
           } `}
           disabled={(inputType === 'file' && isLoading) || disabled}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -73,7 +73,11 @@ const CustomInput: FC<CustomInputProps> = ({
   const TextAreaInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
-        <label className='text-[14px] text-black  mb-2 block font-bold'>
+        <label
+          className={`text-[14px] text-black   mb-2 block font-bold ${
+            isMatch ? ' dark:text-white' : ''
+          } `}
+        >
           {label}
         </label>
       )}
@@ -82,7 +86,9 @@ const CustomInput: FC<CustomInputProps> = ({
         <Input.TextArea
           value={value as string}
           placeholder={placeholder || 'Enter text'}
-          className={`rounded ${styles} hover:border-[#c1cf16]`}
+          className={`rounded ${styles} ${
+            darkMode && isMatch ? 'custom-input' : ''
+          }  hover:border-[#c1cf16]`}
           disabled={disabled}
           rows={6}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
@@ -96,14 +102,20 @@ const CustomInput: FC<CustomInputProps> = ({
   const SelectMultipleInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
-        <label className='text-[14px] text-black  mb-2 block font-bold'>
+        <label
+          className={`text-[14px] text-black   mb-2 block font-bold ${
+            isMatch ? ' dark:text-white' : ''
+          } `}
+        >
           {label}
         </label>
       )}
 
       <Form.Item name={name} rules={rules} label={customlabel}>
         <Select
-          className={`rounded h-[60px] ${styles} hover:border-[#c1cf16]`}
+          className={`rounded h-[60px] ${styles} ${
+            darkMode && isMatch ? 'custom-input' : ''
+          }  hover:border-[#c1cf16]`}
           mode='multiple'
           size='large'
           loading={isLoading}
@@ -123,7 +135,11 @@ const CustomInput: FC<CustomInputProps> = ({
   const SelectInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
-        <label className='text-[14px] text-black  mb-2 block font-bold'>
+        <label
+          className={`text-[14px] text-black   mb-2 block font-bold ${
+            isMatch ? ' dark:text-white' : ''
+          } `}
+        >
           {label}
         </label>
       )}
@@ -132,7 +148,9 @@ const CustomInput: FC<CustomInputProps> = ({
         <Select
           value={value as string | number}
           onChange={(value) => onChange(value as string | number)}
-          className='rounded h-[60px]  flex items-center hover:border-[#c1cf16]'
+          className={`rounded h-[60px]  flex items-center hover:border-[#c1cf16] ${
+            darkMode && isMatch ? 'custom-input' : ''
+          } `}
           loading={isLoading}
           disabled={disabled}
           options={options}
@@ -150,7 +168,11 @@ const CustomInput: FC<CustomInputProps> = ({
   const RadioInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
-        <label className='text-[14px] text-black  mb-2 block font-bold'>
+        <label
+          className={`text-[14px] text-black   mb-2 block font-bold ${
+            isMatch ? ' dark:text-white' : ''
+          } `}
+        >
           {label}
         </label>
       )}

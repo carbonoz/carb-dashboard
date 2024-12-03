@@ -1,14 +1,18 @@
-import { FC, ReactElement, cloneElement } from 'react'
+import { FC, ReactElement, cloneElement, useEffect } from 'react'
+import { AiOutlineMoon } from 'react-icons/ai'
 import { CiSettings } from 'react-icons/ci'
 import { FaChartPie } from 'react-icons/fa'
 import { FiUser } from 'react-icons/fi'
-import { IoIosLogOut } from 'react-icons/io'
+import { GoSun } from 'react-icons/go'
 import { IoHomeOutline } from 'react-icons/io5'
 import { MdDeviceHub } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
 import { useMatch, useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
+import { RootState } from '../../../lib/redux/store'
+import { toggleDarkMode } from '../../../lib/redux/themeSlice'
 import CustomImage from '../image/customImage'
 
 interface SidebarItemProps {
@@ -75,6 +79,26 @@ const Sidebar: FC<SideBarProps> = ({
     navigate('/ds/')
   }
 
+  const dispatch = useDispatch()
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    if (savedDarkMode !== darkMode) {
+      dispatch(toggleDarkMode())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode.toString())
+    document.documentElement.classList.toggle('dark', darkMode)
+  }, [darkMode])
+
+  const handleToggle = () => {
+    dispatch(toggleDarkMode())
+  }
+
   return (
     <section
       className={`lg:w-[300px] 2xl:w-[300px] ${
@@ -127,13 +151,25 @@ const Sidebar: FC<SideBarProps> = ({
           </>
         )}
       </div>
-      <div className='absolute bottom-0'>
-        <SidebarItem
-          icon={<IoIosLogOut size={30} />}
-          text='Log out'
-          url='/'
-          isLogout={true}
-        />
+      <div className='absolute bottom-8'>
+        <div className='flex  flex-row items-center gap-5  text-white'>
+          {darkMode ? (
+            <GoSun
+              size={30}
+              color='gray'
+              onClick={handleToggle}
+              className='cursor-pointer'
+            />
+          ) : (
+            <AiOutlineMoon
+              size={30}
+              color='gray'
+              onClick={handleToggle}
+              className='cursor-pointer'
+            />
+          )}
+          <div>Dark mode</div>
+        </div>
       </div>
     </section>
   )
