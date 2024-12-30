@@ -14,7 +14,6 @@ import {
   useGetEnergyQuery,
 } from '../../../lib/api/Analytics/analyticsEndpoints'
 import CustomButton from '../../common/button/button'
-import { GeneralContentLoader } from '../../common/loader/loader'
 import FilterTimeZones from '../../forms/filterTimezone'
 import EnergyTable from '../../tables/energyTable'
 import AnalyticsCard from '../common/cards/card'
@@ -110,10 +109,6 @@ const Analytics: FC = (): ReactElement => {
     setTimeZone(value.Timezone)
   }
 
-  if (isFetching || fetching || yearlyFetching || decadeFetching) {
-    return <GeneralContentLoader />
-  }
-
   return (
     <section className='w-[100%]'>
       <div className='w-[100%]'>
@@ -122,14 +117,17 @@ const Analytics: FC = (): ReactElement => {
           <AnalyticsCard
             data={totalLoadPower?.toFixed(1)}
             title='For past 7 days'
+            loading={isFetching || fetching || yearlyFetching || decadeFetching}
           />
           <AnalyticsCard
             data={totalLoadPower30?.toFixed(1)}
             title='For past 30 days'
+            loading={isFetching || fetching || yearlyFetching || decadeFetching}
           />
           <AnalyticsCard
             data={totalLoadPowerMonthly?.toFixed(1)}
             title='For past 12 months'
+            loading={isFetching || fetching || yearlyFetching || decadeFetching}
           />
         </section>
       </div>

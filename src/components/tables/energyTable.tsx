@@ -15,6 +15,7 @@ interface Props {
   isFetching: boolean
   type?: 'monthly' | 'daily' | 'yearly' | 'decade'
   pagination?: TablePaginationConfig
+  loading?: boolean
 }
 
 const { Column } = Table
