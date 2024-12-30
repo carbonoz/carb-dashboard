@@ -331,6 +331,7 @@ export const timezones = [
   'Australia/Melbourne',
   'Pacific/Auckland',
   'Pacific/Honolulu',
+  'Indian/Mauritius',
 ]
 
 export const InverterBrand = [

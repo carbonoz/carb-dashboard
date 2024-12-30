@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Form } from 'antd'
 import { FC, ReactElement, useEffect, useState } from 'react'
+import { ImDownload } from 'react-icons/im'
 import handleAPIRequests from '../../../helpers/handleApiRequest'
+import { handleFileDownload } from '../../../helpers/handleFileDownload'
 import {
   csvfileFormat,
   energyInt,
@@ -12,13 +15,18 @@ import {
 } from '../../../lib/api/Analytics/analyticsEndpoints'
 import CustomButton from '../../common/button/button'
 import { GeneralContentLoader } from '../../common/loader/loader'
+import FilterTimeZones from '../../forms/filterTimezone'
 import EnergyTable from '../../tables/energyTable'
 import AnalyticsCard from '../common/cards/card'
-import { handleFileDownload } from '../../../helpers/handleFileDownload'
-import { ImDownload } from 'react-icons/im'
+
+interface CustomInputProps {
+  Timezone: string
+}
 
 const Analytics: FC = (): ReactElement => {
-  const { data, isFetching, refetch } = useGetEnergyQuery({})
+  const [form] = Form.useForm()
+  const [timeZone, setTimeZone] = useState<string>('')
+  const { data, isFetching, refetch } = useGetEnergyQuery({ timeZone })
   const [downloadingPeriod, setDownloadingPeriod] = useState<number | null>(
     null
   )
@@ -27,13 +35,13 @@ const Analytics: FC = (): ReactElement => {
     data: monthlyData,
     isFetching: fetching,
     refetch: refechMonthly,
-  } = useGetEnergyFor30DaysQuery({})
+  } = useGetEnergyFor30DaysQuery({ timeZone })
 
   const {
     data: yearlyData,
     isFetching: yearlyFetching,
     refetch: yearlyRefetch,
-  } = useGetEnergyFor12MonthsQuery()
+  } = useGetEnergyFor12MonthsQuery({ timeZone })
 
   const {
     data: decadeData,
@@ -98,6 +106,10 @@ const Analytics: FC = (): ReactElement => {
     })
   }
 
+  const onFinish = (value: CustomInputProps) => {
+    setTimeZone(value.Timezone)
+  }
+
   if (isFetching || fetching || yearlyFetching || decadeFetching) {
     return <GeneralContentLoader />
   }
@@ -120,6 +132,9 @@ const Analytics: FC = (): ReactElement => {
             title='For past 12 months'
           />
         </section>
+      </div>
+      <div className='w-full'>
+        <FilterTimeZones form={form} onFinish={onFinish} />
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>

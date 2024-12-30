@@ -21,6 +21,7 @@ export interface energyInt {
 export interface filterDateDto {
   from?: string
   to?: string
+  timeZone?: string
 }
 
 export interface csvfileFormat {
@@ -33,12 +34,13 @@ const energyEndpoints = baseAPI.injectEndpoints({
       providesTags: ['Energy'],
       query: (dto) => {
         const baseUrl = 'energy/energy-data'
-        const queryString =
-          dto && dto.from && dto.to
-            ? `?from=${encodeURIComponent(dto.from)}&to=${encodeURIComponent(
-                dto.to
-              )}`
-            : ''
+        const queryParams = new URLSearchParams()
+
+        if (dto?.from) queryParams.append('from', dto.from)
+        if (dto?.to) queryParams.append('to', dto.to)
+        if (dto?.timeZone) queryParams.append('timezone', dto.timeZone)
+
+        const queryString = queryParams.toString() ? `?${queryParams}` : ''
 
         return {
           url: `${baseUrl}${queryString}`,
@@ -50,12 +52,13 @@ const energyEndpoints = baseAPI.injectEndpoints({
       providesTags: ['Energy'],
       query: (dto) => {
         const baseUrl = 'energy/total/30'
-        const queryString =
-          dto && dto.from && dto.to
-            ? `?from=${encodeURIComponent(dto.from)}&to=${encodeURIComponent(
-                dto.to
-              )}`
-            : ''
+        const queryParams = new URLSearchParams()
+
+        if (dto?.from) queryParams.append('from', dto.from)
+        if (dto?.to) queryParams.append('to', dto.to)
+        if (dto?.timeZone) queryParams.append('timezone', dto.timeZone)
+
+        const queryString = queryParams.toString() ? `?${queryParams}` : ''
 
         return {
           url: `${baseUrl}${queryString}`,
@@ -63,12 +66,18 @@ const energyEndpoints = baseAPI.injectEndpoints({
         }
       },
     }),
-    getEnergyFor12Months: builder.query<EnergyData, void>({
+    getEnergyFor12Months: builder.query<EnergyData, filterDateDto>({
       providesTags: ['Energy'],
-      query: () => ({
-        url: `energy/total/12`,
-        method: 'GET',
-      }),
+      query: (dto) => {
+        const queryParams = new URLSearchParams()
+        if (dto?.timeZone) queryParams.append('timezone', dto.timeZone)
+        const queryString = queryParams.toString() ? `?${queryParams}` : ''
+        const baseUrl = 'energy/total/12'
+        return {
+          url: `${baseUrl}${queryString}`,
+          method: 'GET',
+        }
+      },
     }),
     getEnergyForLast10Years: builder.query<EnergyData, void>({
       providesTags: ['Energy'],
