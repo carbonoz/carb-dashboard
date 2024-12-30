@@ -25,7 +25,6 @@ const EnergyTable: FC<Props> = ({
   type = 'daily',
   pagination,
 }): ReactElement => {
-  const timeZone = 'Indian/Mauritius'
   let dateFormat
   switch (type) {
     case 'monthly':
@@ -62,7 +61,7 @@ const EnergyTable: FC<Props> = ({
         className='bg-white dark:bg-gray-800  dark:text-gray-100 c-column'
         render={(record: energyInt) => (
           <span className='text-gray-500 font-bold '>
-            {dayjs(record?.date).tz(timeZone).format(dateFormat)}
+            {dayjs(record?.date).format(dateFormat)}
           </span>
         )}
         onCell={() =>
