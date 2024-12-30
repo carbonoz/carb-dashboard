@@ -29,7 +29,7 @@ const EnergyChart: FC = (): ReactElement => {
     data: yearlyData,
     isFetching: yearlyFetching,
     refetch: yearlyRefetch,
-  } = useGetEnergyFor12MonthsQuery()
+  } = useGetEnergyFor12MonthsQuery({})
 
   useEffect(() => {
     refetch()
