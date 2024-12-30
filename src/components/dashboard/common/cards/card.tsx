@@ -15,7 +15,7 @@ const AnalyticsCard: FC<AnalyticsCardProps> = ({ data, title }) => {
         </div>
         <div>
           <p className='text-3xl text-center sm:text-left'>
-            {data} <span className='text-xl'>Kwh</span>{' '}
+            {data} <span className='text-xl'>Kwh</span>
           </p>
           <div className='text-white'> Load power {title}</div>
         </div>

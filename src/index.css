@@ -426,3 +426,98 @@
   border: 1px solid #1c2834 !important;
   color: #ffffff !important;
 }
+
+/* Override hover state for select */
+.select-input.ant-select:hover .ant-select-selector {
+  border-color: #c1cf16 !important;
+}
+
+/* Override focus state for select */
+.select-input.ant-select-focused .ant-select-selector,
+.select-input.ant-select-selector:focus,
+.select-input.ant-select-selector:active {
+  border-color: #c1cf16 !important;
+  box-shadow: 0 0 0 2px rgba(193, 207, 22, 0.2) !important;
+}
+
+/* Override dropdown hover state */
+.select-input.ant-select-item-option-active:not(
+    .ant-select-item-option-disabled
+  ) {
+  background-color: rgba(193, 207, 22, 0.1) !important;
+}
+
+/* Override selected state */
+.select-input.ant-select-item-option-selected:not(
+    .ant-select-item-option-disabled
+  ) {
+  background-color: rgba(193, 207, 22, 0.2) !important;
+  color: #c1cf16 !important;
+}
+
+/* Override outline on focus */
+.select-input.ant-select:focus-within {
+  outline: none !important;
+}
+
+/* Custom height for select input */
+.select-input.ant-select-selector {
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Dark mode styles for custom select */
+.custom-select.ant-select:hover .ant-select-selector {
+  border-color: #c1cf16 !important;
+  background-color: #1a242f !important;
+}
+
+.custom-select.ant-select .ant-select-selector {
+  background-color: #1a242f !important;
+  color: #e6e6e6 !important;
+  border: 1px solid #2b3947 !important;
+}
+
+/* Dropdown specific styles */
+.custom-select.ant-select-dropdown {
+  background-color: #1a242f !important;
+  border: 1px solid #2b3947 !important;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.48) !important;
+}
+
+.custom-select.ant-select-item {
+  color: #e6e6e6 !important;
+  background-color: #1a242f !important;
+}
+
+.custom-select.ant-select-item-option-active:not(
+    .ant-select-item-option-disabled
+  ) {
+  background-color: rgba(193, 207, 22, 0.08) !important;
+}
+
+.custom-select.ant-select-item-option-selected:not(
+    .ant-select-item-option-disabled
+  ) {
+  background-color: rgba(193, 207, 22, 0.15) !important;
+  color: #c1cf16 !important;
+}
+
+/* Rest of the styles */
+.custom-select.ant-select-focused .ant-select-selector,
+.custom-select.ant-select-selector:focus,
+.custom-select.ant-select-selector:active {
+  border-color: #c1cf16 !important;
+  box-shadow: 0 0 0 2px rgba(193, 207, 22, 0.15) !important;
+}
+
+.custom-select.ant-select:focus-within {
+  outline: none !important;
+}
+
+.custom-select.ant-select .ant-select-selector {
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+}

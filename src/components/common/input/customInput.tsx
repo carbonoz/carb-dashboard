@@ -20,6 +20,7 @@ interface CustomInputProps {
   options?: Array<{ label: string; value: string | number }>
   defaultValue?: Array<string | number | (string | number)>
   customlabel?: ReactNode
+  selectDefaultValue?: string | number
 }
 
 const CustomInput: FC<CustomInputProps> = ({
@@ -37,6 +38,7 @@ const CustomInput: FC<CustomInputProps> = ({
   onChange = () => null,
   options = [],
   defaultValue = [],
+  selectDefaultValue,
 }) => {
   const darkMode = useSelector((state: RootState) => state.theme.darkMode)
   const isMatch = useMatch('/ds/*')
@@ -114,7 +116,7 @@ const CustomInput: FC<CustomInputProps> = ({
       <Form.Item name={name} rules={rules} label={customlabel}>
         <Select
           className={`rounded h-[60px] ${styles} ${
-            darkMode && isMatch ? 'custom-input' : ''
+            darkMode && isMatch ? 'custom-select' : 'select-input'
           }  hover:border-[#c1cf16]`}
           mode='multiple'
           size='large'
@@ -148,12 +150,13 @@ const CustomInput: FC<CustomInputProps> = ({
         <Select
           value={value as string | number}
           onChange={(value) => onChange(value as string | number)}
-          className={`rounded h-[60px]  flex items-center hover:border-[#c1cf16] ${
-            darkMode && isMatch ? 'custom-input' : ''
+          className={`rounded h-[60px] ${styles}  flex items-center hover:border-[#c1cf16] ${
+            darkMode && isMatch ? 'custom-select' : 'select-input'
           } `}
           loading={isLoading}
           disabled={disabled}
           options={options}
+          defaultValue={selectDefaultValue}
         >
           {options.map((option, index) => (
             <Select.Option key={index} value={option.value}>
