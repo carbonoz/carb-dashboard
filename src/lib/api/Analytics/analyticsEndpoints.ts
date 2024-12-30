@@ -23,6 +23,10 @@ export interface filterDateDto {
   to?: string
 }
 
+export interface csvfileFormat {
+  date: number
+}
+
 const energyEndpoints = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getEnergy: builder.query<EnergyData, filterDateDto>({
@@ -73,6 +77,16 @@ const energyEndpoints = baseAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
+    downloadCSV: builder.mutation<Blob, csvfileFormat>({
+      query: ({ date }) => ({
+        url: `reports/download/csv/${date}`,
+        method: 'GET',
+        headers: {
+          'content-type': 'application/octet-stream',
+        },
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
   }),
 })
 
@@ -81,4 +95,5 @@ export const {
   useGetEnergyFor30DaysQuery,
   useGetEnergyFor12MonthsQuery,
   useGetEnergyForLast10YearsQuery,
+  useDownloadCSVMutation,
 } = energyEndpoints

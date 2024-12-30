@@ -1,17 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactElement, useEffect, useState } from 'react'
+import handleAPIRequests from '../../../helpers/handleApiRequest'
 import {
+  csvfileFormat,
   energyInt,
+  useDownloadCSVMutation,
   useGetEnergyFor12MonthsQuery,
   useGetEnergyFor30DaysQuery,
   useGetEnergyForLast10YearsQuery,
   useGetEnergyQuery,
 } from '../../../lib/api/Analytics/analyticsEndpoints'
+import CustomButton from '../../common/button/button'
 import { GeneralContentLoader } from '../../common/loader/loader'
 import EnergyTable from '../../tables/energyTable'
 import AnalyticsCard from '../common/cards/card'
+import { handleFileDownload } from '../../../helpers/handleFileDownload'
+import { ImDownload } from 'react-icons/im'
 
 const Analytics: FC = (): ReactElement => {
   const { data, isFetching, refetch } = useGetEnergyQuery({})
+  const [downloadingPeriod, setDownloadingPeriod] = useState<number | null>(
+    null
+  )
+  const [downloadCsv, { isLoading }] = useDownloadCSVMutation()
   const {
     data: monthlyData,
     isFetching: fetching,
@@ -65,6 +76,28 @@ const Analytics: FC = (): ReactElement => {
   const totalLoadPower30 = calculateTotalLoadPower(monthlyData?.data)
   const totalLoadPowerMonthly = calculateTotalLoadPower(yearlyData?.data)
 
+  const onDownload = (period: number) => {
+    setDownloadingPeriod(period)
+    const obj: csvfileFormat = { date: period }
+
+    handleAPIRequests({
+      request: downloadCsv,
+      ...obj,
+      notify: true,
+      onSuccess: (file: Blob) => {
+        const fileNames = {
+          7: 'CSV-report-for-last-7-days',
+          30: 'CSV-report-for-last-30-days',
+          12: 'CSV-report-for-last-12-months',
+        }
+        handleFileDownload({
+          name: fileNames[period as keyof typeof fileNames],
+          file,
+        })
+      },
+    })
+  }
+
   if (isFetching || fetching || yearlyFetching || decadeFetching) {
     return <GeneralContentLoader />
   }
@@ -89,18 +122,41 @@ const Analytics: FC = (): ReactElement => {
         </section>
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
-        <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
-          Energy information <span className='pl-5'>( Last 7 days)</span>
-        </h1>
+        <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+          <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+            Energy information{' '}
+            <span className='sm:pl-5 pl-1'>(Last 7 days)</span>
+          </h1>
+
+          <CustomButton
+            type='primary'
+            htmlType='button'
+            loading={isLoading && downloadingPeriod === 7}
+            onClick={() => onDownload(7)}
+            icon={<ImDownload />}
+          />
+        </div>
         <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable data={pastSevenDays} isFetching={isFetching} />
         </div>
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
-        <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
-          Energy information <span className='pl-5'>( Last 30 days)</span>
-        </h1>
+        <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+          <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+            Energy information{' '}
+            <span className='sm:pl-5 pl-1'>(Last 30 days)</span>
+          </h1>
+          <CustomButton
+            type='primary'
+            htmlType='button'
+            loading={isLoading && downloadingPeriod === 30}
+            onClick={() => {
+              onDownload(30)
+            }}
+            icon={<ImDownload />}
+          />
+        </div>
         <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
@@ -112,9 +168,21 @@ const Analytics: FC = (): ReactElement => {
         </div>
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
-        <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
-          Energy information <span className='pl-5'>( Last 12 months)</span>
-        </h1>
+        <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+          <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+            Energy information{' '}
+            <span className='sm:pl-5 pl-1'>(Last 12 months)</span>
+          </h1>
+          <CustomButton
+            type='primary'
+            htmlType='button'
+            loading={isLoading && downloadingPeriod === 12}
+            onClick={() => {
+              onDownload(12)
+            }}
+            icon={<ImDownload />}
+          />
+        </div>
         <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
@@ -125,9 +193,18 @@ const Analytics: FC = (): ReactElement => {
         </div>
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
-        <h1 className='lg:text-xl text-base text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
-          Energy information <span className='pl-5'>( Last 10 years)</span>
-        </h1>
+        <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+          <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+            Energy information{' '}
+            <span className='sm:pl-5 pl-1'>(Last 10 years)</span>
+          </h1>
+          <CustomButton
+            type='primary'
+            htmlType='button'
+            disabled={true}
+            icon={<ImDownload />}
+          />
+        </div>
         <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
           <EnergyTable
