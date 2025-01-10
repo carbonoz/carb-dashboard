@@ -135,7 +135,10 @@ export const DashboardRoutes: FC = (): ReactElement => {
           <NavBar data={data?.data} boxesData={boxesData?.data} />
           <ContentWrapper>
             <Routes>
-              <Route path='/' element={<Analytics />} />
+              <Route
+                path='/'
+                element={<Analytics additionalData={data?.data} />}
+              />
               <Route path='/settings' element={<Settings />} />
               <Route
                 path='/profile'

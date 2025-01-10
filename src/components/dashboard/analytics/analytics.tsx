@@ -17,15 +17,22 @@ import CustomButton from '../../common/button/button'
 import FilterTimeZones from '../../forms/filterTimezone'
 import EnergyTable from '../../tables/energyTable'
 import AnalyticsCard from '../common/cards/card'
+import { AdditionalInfoInt } from '../../../lib/api/user/userEndPoints'
 
 interface CustomInputProps {
   Timezone: string
 }
 
-const Analytics: FC = (): ReactElement => {
+interface AnalyticsProps {
+  additionalData: AdditionalInfoInt | undefined
+}
+
+const Analytics: FC<AnalyticsProps> = ({ additionalData }): ReactElement => {
   const [form] = Form.useForm()
-  const [timeZone, setTimeZone] = useState<string>('')
-  const { data, isFetching, refetch } = useGetEnergyQuery({ timeZone })
+  const [timeZone, setTimeZone] = useState<string | null>(null)
+  const { data, isFetching, refetch } = useGetEnergyQuery(
+    timeZone ? { timeZone } : {}
+  )
   const [downloadingPeriod, setDownloadingPeriod] = useState<number | null>(
     null
   )
@@ -34,13 +41,13 @@ const Analytics: FC = (): ReactElement => {
     data: monthlyData,
     isFetching: fetching,
     refetch: refechMonthly,
-  } = useGetEnergyFor30DaysQuery({ timeZone })
+  } = useGetEnergyFor30DaysQuery(timeZone ? { timeZone } : {})
 
   const {
     data: yearlyData,
     isFetching: yearlyFetching,
     refetch: yearlyRefetch,
-  } = useGetEnergyFor12MonthsQuery({ timeZone })
+  } = useGetEnergyFor12MonthsQuery(timeZone ? { timeZone } : {})
 
   const {
     data: decadeData,
@@ -48,7 +55,7 @@ const Analytics: FC = (): ReactElement => {
     refetch: decadeRefetch,
   } = useGetEnergyForLast10YearsQuery()
 
-  const pastSevenDays = data ? [...data.data].reverse() : []
+  // const pastSevenDays = data ? [...data.data].reverse() : []
   const pastThirtyDays = monthlyData ? [...monthlyData.data].reverse() : []
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -109,6 +116,8 @@ const Analytics: FC = (): ReactElement => {
     setTimeZone(value.Timezone)
   }
 
+  const defaultTimeZone = additionalData?.customerTimezone
+
   return (
     <section className='w-[100%]'>
       <div className='w-[100%]'>
@@ -132,7 +141,11 @@ const Analytics: FC = (): ReactElement => {
         </section>
       </div>
       <div className='w-full'>
-        <FilterTimeZones form={form} onFinish={onFinish} />
+        <FilterTimeZones
+          form={form}
+          onFinish={onFinish}
+          defaultTimeZone={defaultTimeZone}
+        />
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
@@ -151,7 +164,10 @@ const Analytics: FC = (): ReactElement => {
         </div>
         <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
         <div className='p-5'>
-          <EnergyTable data={pastSevenDays} isFetching={isFetching} />
+          <EnergyTable
+            data={pastThirtyDays.slice(0, 7)}
+            isFetching={isFetching}
+          />
         </div>
       </div>
       <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
