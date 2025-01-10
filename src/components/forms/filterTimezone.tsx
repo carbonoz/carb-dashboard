@@ -12,9 +12,14 @@ interface CustomInputProps {
 interface FilterTimeZonesFormProps {
   form: FormInstance
   onFinish: (values: CustomInputProps) => void
+  defaultTimeZone?: string
 }
 
-const FilterTimeZones: FC<FilterTimeZonesFormProps> = ({ form, onFinish }) => {
+const FilterTimeZones: FC<FilterTimeZonesFormProps> = ({
+  form,
+  onFinish,
+  defaultTimeZone,
+}) => {
   return (
     <div className='w-[100%]'>
       <div className='flex sm:flex-row flex-col sm:items-center sm:gap-4'>
@@ -30,7 +35,7 @@ const FilterTimeZones: FC<FilterTimeZonesFormProps> = ({ form, onFinish }) => {
             label='Filter Timezone'
             name='Timezone'
             type='select'
-            selectDefaultValue={'Indian/Mauritius'}
+            selectDefaultValue={defaultTimeZone}
             options={timezones.map((timezone, index) => ({
               key: index,
               value: timezone,
