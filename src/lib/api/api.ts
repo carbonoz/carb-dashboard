@@ -54,6 +54,7 @@ export const baseAPI = createApi({
     'Meter',
     'Certification',
     'Project',
+    'Users',
   ] as const,
   endpoints: () => ({}),
 })

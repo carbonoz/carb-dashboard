@@ -32,6 +32,11 @@ export enum EPartner {
   NO = 'No',
 }
 
+export enum EUserStatus {
+  DISABLED = 'DISABLED',
+  ENABLED = 'ENABLED',
+}
+
 export const ProvincesArray = [
   'CN-AH',
   'CN-BJ',

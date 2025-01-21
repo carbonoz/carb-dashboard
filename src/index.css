@@ -395,6 +395,50 @@
   color: #ffffff !important; /* White text for ellipsis */
 }
 
+/* Dark mode for checkbox column */
+.dark-table td.ant-table-cell.ant-table-selection-column {
+  background-color: #1e293b !important; /* Dark background */
+}
+
+/* Customize the checkbox */
+.dark-table
+  td.ant-table-cell.ant-table-selection-column
+  .ant-checkbox
+  .ant-checkbox-inner {
+  background-color: #334155 !important; /* Darker checkbox */
+  border-color: #475569 !important;
+}
+
+/* Checked state */
+.dark-table
+  td.ant-table-cell.ant-table-selection-column
+  .ant-checkbox-checked
+  .ant-checkbox-inner {
+  background-color: #0ea5e9 !important; /* Blue when checked */
+  border-color: #0ea5e9 !important;
+}
+
+/* Hover effect */
+.dark-table
+  td.ant-table-cell.ant-table-selection-column
+  .ant-checkbox:hover
+  .ant-checkbox-inner {
+  border-color: #94a3b8 !important; /* Lighter border on hover */
+}
+
+/* Disabled state */
+.dark-table
+  td.ant-table-cell.ant-table-selection-column
+  .ant-checkbox-disabled
+  .ant-checkbox-inner {
+  background-color: #64748b !important; /* Gray for disabled checkboxes */
+  border-color: #64748b !important;
+}
+
+.dark-table td.ant-table-cell {
+  background-color: #1e293b !important;
+  color: white !important;
+}
 /*button*/
 
 .custom-button {

@@ -41,14 +41,16 @@ const CustomInput: FC<CustomInputProps> = ({
   selectDefaultValue,
 }) => {
   const darkMode = useSelector((state: RootState) => state.theme.darkMode)
+
   const isMatch = useMatch('/ds/*')
+  const isAdmin = useMatch('/admin/*')
 
   const NormalInput = (
     <div className='mb-[-10px]'>
       {label && !customlabel && (
         <label
           className={`text-[14px] text-black   mb-2 block font-bold ${
-            isMatch ? ' dark:text-white' : ''
+            isMatch || isAdmin ? ' dark:text-white' : ''
           } `}
         >
           {label}
@@ -61,7 +63,7 @@ const CustomInput: FC<CustomInputProps> = ({
           type={inputType}
           placeholder={placeholder || 'Type'}
           className={`rounded h-[60px] ${styles} hover:border-[#c1cf16] ${
-            darkMode && isMatch ? 'custom-input' : ''
+            darkMode && (isMatch || isAdmin) ? 'custom-input' : ''
           } `}
           disabled={(inputType === 'file' && isLoading) || disabled}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -77,7 +79,7 @@ const CustomInput: FC<CustomInputProps> = ({
       {label && !customlabel && (
         <label
           className={`text-[14px] text-black   mb-2 block font-bold ${
-            isMatch ? ' dark:text-white' : ''
+            isMatch || isAdmin ? ' dark:text-white' : ''
           } `}
         >
           {label}
@@ -89,7 +91,7 @@ const CustomInput: FC<CustomInputProps> = ({
           value={value as string}
           placeholder={placeholder || 'Enter text'}
           className={`rounded ${styles} ${
-            darkMode && isMatch ? 'custom-input' : ''
+            darkMode && (isMatch || isAdmin) ? 'custom-input' : ''
           }  hover:border-[#c1cf16]`}
           disabled={disabled}
           rows={6}
@@ -106,7 +108,7 @@ const CustomInput: FC<CustomInputProps> = ({
       {label && !customlabel && (
         <label
           className={`text-[14px] text-black   mb-2 block font-bold ${
-            isMatch ? ' dark:text-white' : ''
+            isMatch || isAdmin ? ' dark:text-white' : ''
           } `}
         >
           {label}
@@ -116,7 +118,7 @@ const CustomInput: FC<CustomInputProps> = ({
       <Form.Item name={name} rules={rules} label={customlabel}>
         <Select
           className={`rounded h-[60px] ${styles} ${
-            darkMode && isMatch ? 'custom-select' : 'select-input'
+            darkMode && (isMatch || isAdmin) ? 'custom-select' : 'select-input'
           }  hover:border-[#c1cf16]`}
           mode='multiple'
           size='large'
@@ -139,7 +141,7 @@ const CustomInput: FC<CustomInputProps> = ({
       {label && !customlabel && (
         <label
           className={`text-[14px] text-black   mb-2 block font-bold ${
-            isMatch ? ' dark:text-white' : ''
+            isMatch || isAdmin ? ' dark:text-white' : ''
           } `}
         >
           {label}
@@ -151,7 +153,7 @@ const CustomInput: FC<CustomInputProps> = ({
           value={value as string | number}
           onChange={(value) => onChange(value as string | number)}
           className={`rounded h-[60px] ${styles}  flex items-center hover:border-[#c1cf16] ${
-            darkMode && isMatch ? 'custom-select' : 'select-input'
+            darkMode && (isMatch || isAdmin) ? 'custom-select' : 'select-input'
           } `}
           loading={isLoading}
           disabled={disabled}
@@ -173,7 +175,7 @@ const CustomInput: FC<CustomInputProps> = ({
       {label && !customlabel && (
         <label
           className={`text-[14px] text-black   mb-2 block font-bold ${
-            isMatch ? ' dark:text-white' : ''
+            isMatch || isAdmin ? ' dark:text-white' : ''
           } `}
         >
           {label}

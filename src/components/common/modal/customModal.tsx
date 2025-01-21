@@ -36,6 +36,7 @@ const CustomModal: FC<CustomModalProps> = ({
 }) => {
   const onCancel = () => {
     setIsVisible(false)
+    handleCancel && handleCancel()
   }
 
   const darkMode = useSelector((state: RootState) => state.theme.darkMode)
@@ -48,7 +49,7 @@ const CustomModal: FC<CustomModalProps> = ({
           className={`flex justify-between items-center px-[42px] pt-12 pb-0`}
         >
           <div>
-            <span className='font-bold block text-[24px] lg:text-[32px] text-black dark:text-white  mb-2'>
+            <span className='font-bold block lg:text-[24px] sm:text-[18px] text-[16px] xl:text-[32px] text-black dark:text-white  mb-2'>
               {title}
             </span>
 

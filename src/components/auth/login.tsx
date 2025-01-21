@@ -3,6 +3,7 @@ import { Col, Form, Row } from 'antd'
 import { FC, ReactElement } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/1.jpg'
+import { ERoles } from '../../config/constant'
 import handleAPIRequests from '../../helpers/handleApiRequest'
 import { setToLocal } from '../../helpers/handleStorage'
 import requiredField from '../../helpers/requiredField'
@@ -26,7 +27,11 @@ const Login: FC = (): ReactElement => {
     if (res.data) {
       if (res.data.token) {
         setToLocal('token', res.data.token)
-        navigate('/ds')
+        if (res.data.user.role === ERoles.ADMIN) {
+          navigate('/admin')
+        } else {
+          navigate('/ds')
+        }
       } else {
         Notify({
           message: 'Error',
