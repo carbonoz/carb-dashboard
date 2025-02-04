@@ -32,6 +32,22 @@ export enum EPartner {
   NO = 'No',
 }
 
+export enum EUserStatus {
+  DISABLED = 'DISABLED',
+  ENABLED = 'ENABLED',
+}
+
+export enum ELogType {
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+  ERROR = 'ERROR',
+  SYSTEM_EVENT = 'SYSTEM_EVENT',
+  DATA_CHANGE = 'DATA_CHANGE',
+  SECURITY_ALERT = 'SECURITY_ALERT',
+  API_REQUEST = 'API_REQUEST',
+  SOCKET_EVENT = 'SOCKET_EVENT',
+}
+
 export const ProvincesArray = [
   'CN-AH',
   'CN-BJ',

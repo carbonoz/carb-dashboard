@@ -8,16 +8,23 @@ import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
 import { boxInterface } from '../../../lib/api/box/boxEndPoints'
 import { AdditionalInfoInt } from '../../../lib/api/user/userEndPoints'
+import AdminSidebar from '../../admin/sidebar'
 import CustomImage from '../image/customImage'
 import Sidebar from '../sidebar/sidebar'
 
 interface props {
-  data: AdditionalInfoInt | undefined
+  data?: AdditionalInfoInt | undefined
   additional?: boolean
   boxesData?: Array<boxInterface> | undefined
+  isAdmin?: boolean
 }
 
-const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
+const NavBar: FC<props> = ({
+  data,
+  additional,
+  boxesData,
+  isAdmin,
+}): ReactElement => {
   const navigate = useNavigate()
 
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
@@ -33,7 +40,9 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
   const ProfileDropdown = (
     <div className='w-[100%] rounded shadow-md z-100 bg-white p-2 mt-6'>
       <p className='p-4 px-2 w-[100%] font-medium flex flex-row gap-2'>
-        <span className='text-gray-400'>{data?.firstName}</span>
+        <span className='text-gray-400'>
+          {isAdmin ? 'Admin' : data?.firstName}
+        </span>
       </p>
 
       <div
@@ -60,11 +69,15 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
         className='custom-drawer'
       >
         <section className=' h-[100%] w-[100%] overflow-y-auto scroll'>
-          <Sidebar
-            isDrawer={true}
-            boxesData={boxesData}
-            setDrawerVisible={setDrawerVisible}
-          />
+          {isAdmin ? (
+            <AdminSidebar />
+          ) : (
+            <Sidebar
+              isDrawer={true}
+              boxesData={boxesData}
+              setDrawerVisible={setDrawerVisible}
+            />
+          )}
         </section>
       </Drawer>
       <nav
@@ -95,7 +108,9 @@ const NavBar: FC<props> = ({ data, additional, boxesData }): ReactElement => {
           <div className='flex items-center gap-2 lg:gap-4 cursor-pointer hover:bg-inherit hover:text-[#C1CF16]  p-2 px-2 rounded'>
             <FaRegUser />
             <div className='flex items-center gap-2'>
-              <p className='hidden lg:block'>{data?.lastName}</p>
+              <p className='hidden lg:block'>
+                {isAdmin ? 'Admin' : data?.lastName}
+              </p>
               <MdKeyboardArrowDown
                 size={14}
                 className='object-cover rounded-full'

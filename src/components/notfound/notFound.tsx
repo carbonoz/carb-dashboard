@@ -1,9 +1,18 @@
 import { FC, ReactElement } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CustomButton from '../common/button/button'
 
 const NotFound: FC = (): ReactElement => {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleNavigate = () => {
+    if (location.pathname.includes('admin')) {
+      navigate('/admin')
+    } else {
+      navigate('/ds')
+    }
+  }
   return (
     <div className='w-[100%] h-[600px] grid items-center justify-center'>
       <div>
@@ -13,7 +22,7 @@ const NotFound: FC = (): ReactElement => {
           <CustomButton
             type='primary'
             className='h-[60px]'
-            onClick={() => navigate('/ds')}
+            onClick={handleNavigate}
           >
             Go home
           </CustomButton>

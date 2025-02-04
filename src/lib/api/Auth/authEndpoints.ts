@@ -3,11 +3,11 @@ import { baseAPI } from '../api'
 
 export interface LoginDTO {
   email: string
-  password: string
+  password?: string
 }
 
 export interface SignupDTO extends LoginDTO {
-  role: ERoles
+  role?: ERoles
 }
 
 export interface verifyUserDTO {
