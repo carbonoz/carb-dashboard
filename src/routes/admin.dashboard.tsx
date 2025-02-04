@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Logs from '../components/admin/dashboard/logs/logs'
+import Logs from '../components/admin/dashboard/logsM/logs'
 import AdminRedexInformation from '../components/admin/dashboard/redex/redex'
 import Users from '../components/admin/dashboard/users/users'
 import AdminSidebar from '../components/admin/sidebar'
