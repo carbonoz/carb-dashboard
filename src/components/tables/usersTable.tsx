@@ -103,9 +103,9 @@ const UsersTable: FC<UsersTableProps> = ({
       />
 
       <Column
-        title='Verified'
+        title='Verification'
         key='active'
-        {...getColumnProps('Verified')}
+        {...getColumnProps('Verification')}
         render={(record: AccountUser) => (
           <span
             className={` font-bold   ${

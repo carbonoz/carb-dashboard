@@ -471,6 +471,10 @@
   color: #ffffff !important;
 }
 
+.custom-input::placeholder {
+  color: #ffffff !important;
+}
+
 /* Override hover state for select */
 .select-input.ant-select:hover .ant-select-selector {
   border-color: #c1cf16 !important;

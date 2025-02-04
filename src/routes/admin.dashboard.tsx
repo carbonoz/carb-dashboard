@@ -1,6 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Logs from '../components/admin/dashboard/logs/logs'
+import AdminRedexInformation from '../components/admin/dashboard/redex/redex'
 import Users from '../components/admin/dashboard/users/users'
 import AdminSidebar from '../components/admin/sidebar'
 import ContentWrapper from '../components/common/contentwrapper/contentwrapper'
@@ -17,7 +18,8 @@ export const AdminDashboardRoutes: FC = (): ReactElement => {
           <NavBar isAdmin={true} />
           <ContentWrapper>
             <Routes>
-              <Route path='/' element={<Logs />} />
+              <Route path='/' element={<AdminRedexInformation />} />
+              <Route path='/logs' element={<Logs />} />
               <Route path='/users' element={<Users />} />
               <Route path='*' element={<NotFound />} />
             </Routes>

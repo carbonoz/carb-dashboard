@@ -2,7 +2,7 @@ import { FC, ReactElement, cloneElement, useEffect } from 'react'
 import { AiOutlineMoon } from 'react-icons/ai'
 import { FaUsers } from 'react-icons/fa'
 import { GoSun } from 'react-icons/go'
-import { IoHomeOutline } from 'react-icons/io5'
+import { TbReportSearch } from 'react-icons/tb'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMatch, useNavigate } from 'react-router-dom'
 import Logo from '../../assets/1.jpg'
@@ -10,6 +10,7 @@ import { removeFromLocal } from '../../helpers/handleStorage'
 import { RootState } from '../../lib/redux/store'
 import { toggleDarkMode } from '../../lib/redux/themeSlice'
 import CustomImage from '../common/image/customImage'
+import { GiFiles } from 'react-icons/gi'
 
 interface SidebarItemProps {
   icon: ReactElement
@@ -109,8 +110,8 @@ const AdminSidebar: FC<SideBarProps> = ({
       <div className='mt-0 w-full'>
         <>
           <SidebarItem
-            icon={<IoHomeOutline size={30} />}
-            text='Dashboard'
+            icon={<GiFiles size={30} />}
+            text='Redex'
             url='/admin/'
             setDrawerVisible={setDrawerVisible}
           />
@@ -118,6 +119,12 @@ const AdminSidebar: FC<SideBarProps> = ({
             icon={<FaUsers size={30} />}
             text='Users'
             url='/admin/users'
+            setDrawerVisible={setDrawerVisible}
+          />
+          <SidebarItem
+            icon={<TbReportSearch size={30} />}
+            text='Logs'
+            url='/admin/logs'
             setDrawerVisible={setDrawerVisible}
           />
         </>
