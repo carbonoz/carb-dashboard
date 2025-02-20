@@ -26,7 +26,7 @@ const AddNewUserForm: FC<AddNewUserFormProps> = ({ form, onFinish }) => {
           label='User email'
           name='email'
           type='normal'
-          inputType='text'
+          inputType='email'
         />
       </Form>
     </div>
