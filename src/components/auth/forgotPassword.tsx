@@ -34,9 +34,9 @@ const ForgotPassword = () => {
 
   return (
     <div className='h-[100vh] w-[100%] items-center justify-center flex flex-row background '>
-      <div className='xl:w-[40%] 2xl:w-[32%]  md:w-[45%] lg:w-[45%] 2xl:h-[650px] sm:h-[600px] md:h-[600px] xl:h-[650px] lg:h-[650px] hidden sm:flex md:flex lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'></div>
-      <div className='p-4 xl:w-[40%] 2xl:w-[32%]   md:w-[45%]   w-[80%] lg:w-[45%] sm:h-[600px] md:h-[600px]  h-fit 2xl:h-[650px] xl:h-[650px] lg:h-[650px] bg-white    shadow-md sm:p-6 lg:p-8'>
-        <section className='lg:hidden flex justify-center'>
+      {/* <div className='xl:w-[40%] 2xl:w-[32%]  md:w-[45%] lg:w-[45%] 2xl:h-[650px] sm:h-[600px] md:h-[600px] xl:h-[650px] lg:h-[650px] hidden sm:flex md:flex lg:flex justify-center items-start flex-col bg-white shadow-md  lg:p-8 bg-login'></div> */}
+      <div className='border rounded-lg  border-gray-200 p-4 xl:w-[40%] 2xl:w-[32%]   md:w-[45%]   w-[80%] lg:w-[45%] sm:h-[600px] md:h-[600px]  h-fit 2xl:h-[650px] xl:h-[650px] lg:h-[650px] bg-white    shadow-md sm:p-6 lg:p-8'>
+        <section className='flex justify-center'>
           <div className='flex lg:flex-row md:flex-row flex-col lg:gap-5 md:gap-5 gap-1 items-center '>
             <CustomImage
               src={logo}
@@ -46,12 +46,9 @@ const ForgotPassword = () => {
               height={50}
               style={{ objectFit: 'cover' }}
             />
-            <h5 className='lg:text-xl text-base font-bold text-center text-black lg:hidden block'>
-              Forgot password
-            </h5>
           </div>
         </section>
-        <h5 className='lg:text-xl text-base font-bold text-center text-black hidden lg:block '>
+        <h5 className='lg:text-xl text-base font-bold text-center text-black mt-2 mb-3 '>
           Forgot password
         </h5>
         <Form
