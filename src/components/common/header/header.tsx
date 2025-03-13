@@ -6,7 +6,6 @@ import { MdKeyboardArrowDown, MdMenuOpen } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
-import { boxInterface } from '../../../lib/api/box/boxEndPoints'
 import { AdditionalInfoInt } from '../../../lib/api/user/userEndPoints'
 import AdminSidebar from '../../admin/sidebar'
 import CustomImage from '../image/customImage'
@@ -15,16 +14,10 @@ import Sidebar from '../sidebar/sidebar'
 interface props {
   data?: AdditionalInfoInt | undefined
   additional?: boolean
-  boxesData?: Array<boxInterface> | undefined
   isAdmin?: boolean
 }
 
-const NavBar: FC<props> = ({
-  data,
-  additional,
-  boxesData,
-  isAdmin,
-}): ReactElement => {
+const NavBar: FC<props> = ({ data, additional, isAdmin }): ReactElement => {
   const navigate = useNavigate()
 
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false)
@@ -72,11 +65,7 @@ const NavBar: FC<props> = ({
           {isAdmin ? (
             <AdminSidebar />
           ) : (
-            <Sidebar
-              isDrawer={true}
-              boxesData={boxesData}
-              setDrawerVisible={setDrawerVisible}
-            />
+            <Sidebar isDrawer={true} setDrawerVisible={setDrawerVisible} />
           )}
         </section>
       </Drawer>

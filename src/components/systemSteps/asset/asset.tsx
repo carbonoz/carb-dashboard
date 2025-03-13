@@ -18,6 +18,7 @@ import {
 } from '../../../lib/api/user/userEndPoints'
 import CustomImage from '../../common/image/customImage'
 import CustomInput from '../../common/input/customInput'
+import LocationPicker from '../../steps/redexFields/LocationPicker'
 
 interface props {
   makeStep: () => unknown
@@ -42,6 +43,17 @@ const Assets: FC<props> = ({ makeStep, setLoadingAction }): ReactElement => {
   const [, setUploadSuccess] = useState<boolean>(false)
   const [, setUploadFailure] = useState<boolean>(false)
   const [, setUploadedUrls] = useState<string[]>([])
+  const [latitude, setLatitude] = useState<number | null>(null)
+  const [longitude, setLongitude] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      form.setFieldsValue({
+        latitude,
+        longitude,
+      })
+    }
+  }, [longitude, latitude, form])
 
   function onChangeSolarPanelsPhotoUpload(e: any) {
     setSolarPanelsPhotoUpload(e)
@@ -75,8 +87,8 @@ const Assets: FC<props> = ({ makeStep, setLoadingAction }): ReactElement => {
       ...buildingPhotoUpload,
       ...inverterSetupPhotoUpload,
     ]
-    values.latitude = parseFloat(`${values.latitude}`)
-    values.longitude = parseFloat(`${values.longitude}`)
+    values.latitude = parseFloat(`${latitude}`)
+    values.longitude = parseFloat(`${longitude}`)
     values.capacityKwp = parseFloat(`${values.capacityKwp}`)
     values.amountOfInverters = parseInt(`${values.amountOfInverters}`)
     values.amountOfPanels = parseInt(`${values.amountOfPanels}`)
@@ -322,6 +334,14 @@ const Assets: FC<props> = ({ makeStep, setLoadingAction }): ReactElement => {
               rules={requiredField('Country')}
             />
           </Col>
+          <div className='border border-gray-300 p-4 rounded-lg mb-4 w-full'>
+            <LocationPicker
+              longitude={longitude}
+              latitude={latitude}
+              setLatitude={setLatitude}
+              setLongitude={setLongitude}
+            />
+          </div>
           <Col className='gutter-row mt-2 ' span={width <= 720 ? 24 : 12}>
             <CustomInput
               placeholder='Latitude'
@@ -341,6 +361,7 @@ const Assets: FC<props> = ({ makeStep, setLoadingAction }): ReactElement => {
               ]}
             />
           </Col>
+
           <Col className='gutter-row mt-2 ' span={width <= 720 ? 24 : 12}>
             <CustomInput
               placeholder='Longitude'

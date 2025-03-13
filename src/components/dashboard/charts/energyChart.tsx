@@ -78,17 +78,41 @@ const EnergyChart: FC = (): ReactElement => {
           <GeneralContentLoader />
         ) : (
           <section className='flex flex-col'>
-            <div>
-              <h2 className='text-lg font-bold mb-5'>Last 7 Days</h2>
-              <Last7DaysGraph data={data?.data || []} />
+            <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
+              <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+                <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+                  Graph data
+                  <span className='sm:pl-5 pl-1'>(For last 7 days)</span>
+                </h1>
+              </div>
+              <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
+              <div className='p-5'>
+                <Last7DaysGraph data={data?.data || []} />
+              </div>
             </div>
-            <div>
-              <h2 className='text-lg font-bold mb-5'>Last 30 Days</h2>
-              <Last30DaysGraph data={monthlyData?.data || []} />
+            <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
+              <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+                <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+                  Graph data
+                  <span className='sm:pl-5 pl-1'>(For last 30 days)</span>
+                </h1>
+              </div>
+              <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
+              <div className='p-5'>
+                <Last30DaysGraph data={monthlyData?.data || []} />
+              </div>
             </div>
-            <div>
-              <h2 className='text-lg font-bold mb-5'>Last 12 Months</h2>
-              <Last12MonthGraph data={yearlyData?.data || []} />
+            <div className='mt-8 border border-gray-300 dark:border-gray-600 rounded-2xl'>
+              <div className='flex justify-between items-center p-5  w-[100%] bg-[#1C2834] rounded-t-2xl'>
+                <h1 className=' lg:text-xl text-base text-[#C1CF16] font-bold  rounded-t-2xl '>
+                  Graph data
+                  <span className='sm:pl-5 pl-1'>(Last 12 Months)</span>
+                </h1>
+              </div>
+              <div className='border-t-[1px] border-gray-300 dark:border-gray-600 ' />
+              <div className='p-5'>
+                <Last12MonthGraph data={yearlyData?.data || []} />
+              </div>
             </div>
           </section>
         )}
