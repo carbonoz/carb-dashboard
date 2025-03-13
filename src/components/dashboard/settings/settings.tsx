@@ -1,12 +1,12 @@
 import { FC, ReactElement, useState } from 'react'
 import { FiCopy, FiEye, FiEyeOff } from 'react-icons/fi'
-import { useGetTopicsQuery } from '../../../lib/api/topic/topicEndpints'
+// import { useGetTopicsQuery } from '../../../lib/api/topic/topicEndpints'
 import { useGetCredentialsQuery } from '../../../lib/api/user/userEndPoints'
 import { GeneralContentLoader } from '../../common/loader/loader'
 import Notify from '../../common/notification/notification'
 
 const Settings: FC = (): ReactElement => {
-  const { data, isFetching } = useGetTopicsQuery()
+  // const { data, isFetching } = useGetTopicsQuery()
   const { data: credentials, isFetching: fetching } = useGetCredentialsQuery()
 
   const [showClientSecret, setShowClientSecret] = useState(false)
@@ -19,13 +19,13 @@ const Settings: FC = (): ReactElement => {
     })
   }
 
-  if (isFetching || fetching) {
+  if (fetching) {
     return <GeneralContentLoader />
   }
 
   return (
     <section>
-      <div className='border border-gray-300 dark:border-gray-600 rounded-2xl'>
+      {/* <div className='border border-gray-300 dark:border-gray-600 rounded-2xl'>
         <h1 className='text-xl text-[#c1cf16] font-bold p-5 bg-[#1C2834] rounded-t-2xl'>
           Settings
         </h1>
@@ -36,7 +36,7 @@ const Settings: FC = (): ReactElement => {
           </p>
           <p>{data?.data?.topicName}</p>
         </div>
-      </div>
+      </div> */}
 
       <div className='mt-10' />
 

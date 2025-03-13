@@ -10,12 +10,13 @@ import {
   Switch,
 } from 'antd'
 import dayjs from 'dayjs'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   countryOptions,
   ESteps,
   frequencyData,
   ProvincesArray,
+  timezones,
 } from '../../../config/constant'
 import handleAPIRequests from '../../../helpers/handleApiRequest'
 import {
@@ -25,6 +26,7 @@ import {
 import { useGetRedexFileIdQuery } from '../../../lib/api/user/userEndPoints'
 import CustomButton from '../../common/button/button'
 import { GeneralContentLoader } from '../../common/loader/loader'
+import LocationPicker from './LocationPicker'
 
 interface Props {
   makeStep: () => void
@@ -37,6 +39,21 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
   const [form] = Form.useForm()
 
   const [addDevice] = useRegisterDeviceMutation()
+  const [latitude, setLatitude] = useState<number | null>(null)
+  const [longitude, setLongitude] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      form.setFieldsValue({
+        Devices: [
+          {
+            Latitude: latitude,
+            Longitude: longitude,
+          },
+        ],
+      })
+    }
+  }, [longitude, latitude, form])
 
   useEffect(() => {
     refetch()
@@ -79,6 +96,8 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
         device.OwnersDeclarationStartDate
       ).format('YYYY-MM-DD')
       device.Inverters = device.Inverters.flatMap((item) => item || [])
+      device.Latitude = latitude as number
+      device.Longitude = longitude as number
     })
     handleAPIRequests({
       request: addDevice,
@@ -108,13 +127,17 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
           </li>
           <li>
             <strong>Grouped English Name</strong>{' '}
-            <span className='text-red-500'>*</span>: The English name for the
-            grouped entity (e.g., project or organization). Mandatory.
+            <span className='text-red-500'>*</span>: A Grouped Device’s Name in
+            English. Please use the format as below: Aggregator-Province-Date-An
+            auto-incremented numeric string that has 3 digits and starts with
+            ‘1’ ex: SEASolar-Singapore-20240516001. Mandatory.
           </li>
           <li>
             <strong>Grouped Local Name</strong>{' '}
-            <span className='text-red-500'>*</span>: The local name of the
-            grouped entity. This is required for proper localization.
+            <span className='text-red-500'>*</span>:A Grouped Device’s Name in
+            English. Please use the format as below: Aggregator-Province-Date-An
+            auto-incremented numeric string that has 3 digits and starts with
+            ‘1’ ex: SEASolar-Singapore-20240516001. Mandatory.
           </li>
           <li>
             <strong>Province</strong> <span className='text-red-500'>*</span>:
@@ -321,7 +344,14 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
 
           <Col span={12}>
             <Form.Item label='Timezone' name='Timezone'>
-              <Input className='h-[60px] ' placeholder='UTC+08:00' />
+              <Select
+                className='rounded h-[60px] text-black flex items-center hover:border-[#c1cf16]'
+                options={timezones.map((timezone, index) => ({
+                  key: index,
+                  value: timezone,
+                  label: timezone,
+                }))}
+              />
             </Form.Item>
           </Col>
 
@@ -493,6 +523,16 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                           />
                         </Form.Item>
                       </Col>
+
+                      <div className='border border-gray-300 p-4 rounded-lg mb-4 w-full'>
+                        <LocationPicker
+                          longitude={longitude}
+                          latitude={latitude}
+                          setLatitude={setLatitude}
+                          setLongitude={setLongitude}
+                        />
+                      </div>
+
                       <Col span={12}>
                         <Form.Item
                           label={
@@ -514,6 +554,8 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                             className='h-[60px] w-full'
                             placeholder='139.7500'
                             type='number'
+                            onChange={(value) => setLongitude(value as number)}
+                            value={longitude}
                           />
                         </Form.Item>
                       </Col>
@@ -539,6 +581,8 @@ const RedexFields: FC<Props> = ({ makeStep, setLoadingAction }) => {
                             className='h-[60px] w-full '
                             placeholder='-74.0058'
                             type='number'
+                            onChange={(value) => setLatitude(value as number)}
+                            value={latitude}
                           />
                         </Form.Item>
                       </Col>

@@ -5,12 +5,10 @@ import { FaChartPie } from 'react-icons/fa'
 import { FiUser } from 'react-icons/fi'
 import { GoSun } from 'react-icons/go'
 import { IoHomeOutline } from 'react-icons/io5'
-import { MdDeviceHub } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMatch, useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/1.jpg'
 import { removeFromLocal } from '../../../helpers/handleStorage'
-import { boxInterface } from '../../../lib/api/box/boxEndPoints'
 import { RootState } from '../../../lib/redux/store'
 import { toggleDarkMode } from '../../../lib/redux/themeSlice'
 import CustomImage from '../image/customImage'
@@ -24,7 +22,6 @@ interface SidebarItemProps {
 }
 
 interface SideBarProps {
-  boxesData?: Array<boxInterface> | undefined
   isDrawer?: boolean
   setDrawerVisible?: (value: boolean) => void
 }
@@ -69,7 +66,6 @@ const SidebarItem: FC<SidebarItemProps> = ({
 }
 
 const Sidebar: FC<SideBarProps> = ({
-  boxesData,
   isDrawer,
   setDrawerVisible,
 }): ReactElement => {
@@ -113,43 +109,30 @@ const Sidebar: FC<SideBarProps> = ({
         <h1 className='text-2xl  text-[#C1CF16] font-bold'>CARBONOZ</h1>
       </div>
       <div className='mt-0 w-full'>
-        {!boxesData || boxesData.length === 0 ? (
-          <>
-            <SidebarItem
-              icon={<MdDeviceHub size={30} />}
-              text='Configurations'
-              url='/ds/devices'
-              setDrawerVisible={setDrawerVisible}
-            />
-          </>
-        ) : (
-          <>
-            <SidebarItem
-              icon={<IoHomeOutline size={30} />}
-              text='Dashboard'
-              url='/ds/'
-              setDrawerVisible={setDrawerVisible}
-            />
-            <SidebarItem
-              icon={<FiUser size={30} />}
-              text='Profile'
-              url='/ds/profile'
-              setDrawerVisible={setDrawerVisible}
-            />
-            <SidebarItem
-              icon={<CiSettings size={30} />}
-              text='Settings'
-              url='/ds/settings'
-              setDrawerVisible={setDrawerVisible}
-            />
-            <SidebarItem
-              icon={<FaChartPie size={30} />}
-              text='Charts'
-              url='/ds/charts'
-              setDrawerVisible={setDrawerVisible}
-            />
-          </>
-        )}
+        <SidebarItem
+          icon={<IoHomeOutline size={30} />}
+          text='Dashboard'
+          url='/ds/'
+          setDrawerVisible={setDrawerVisible}
+        />
+        <SidebarItem
+          icon={<FiUser size={30} />}
+          text='Profile'
+          url='/ds/profile'
+          setDrawerVisible={setDrawerVisible}
+        />
+        <SidebarItem
+          icon={<CiSettings size={30} />}
+          text='Settings'
+          url='/ds/settings'
+          setDrawerVisible={setDrawerVisible}
+        />
+        <SidebarItem
+          icon={<FaChartPie size={30} />}
+          text='Charts'
+          url='/ds/charts'
+          setDrawerVisible={setDrawerVisible}
+        />
       </div>
       <div className='absolute bottom-8'>
         <div className='flex  flex-row items-center gap-5  text-white'>

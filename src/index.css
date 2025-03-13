@@ -446,6 +446,15 @@
   background-color: #2b3947 !important;
   border: #1c2834 !important;
 }
+.custom-submit-button {
+  color: #ffffff !important;
+  background-color: #2b3947 !important;
+  border: #1c2834 !important;
+}
+.custom-submit-button:hover {
+  background-color: #2b3947 !important;
+  color: white !important;
+}
 
 .custom-modal .ant-modal-content {
   color: #ffffff !important;

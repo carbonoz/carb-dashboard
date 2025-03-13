@@ -75,6 +75,18 @@ const ChoosePartnersTypeForm = () => {
               As part of our services, we may need to share your data with the
               following third parties
             </p>
+            <p className='mt-2'>
+              For more information about Redex, visit
+              <a
+                href='https://www.redex-group.com'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-blue-500 underline pl-3'
+              >
+                Redex's website
+              </a>
+              .
+            </p>
           </div>
           <Form form={form} onFinish={onFinish} name='patners-form'>
             <CustomInput

@@ -18,6 +18,7 @@ export interface stepInt {
   createdAt: string
   updatedAt: string
   isFile: boolean | undefined
+  hasSkipped: boolean
 }
 
 export const stepsApi = baseAPI.injectEndpoints({
@@ -37,7 +38,16 @@ export const stepsApi = baseAPI.injectEndpoints({
         method: 'GET',
       }),
     }),
+    skipStep: builder.mutation<unknown, stepDTO>({
+      invalidatesTags: ['Steps'],
+      query: (DTO) => ({
+        url: `/steps/skip-step`,
+        method: 'POST',
+        body: DTO,
+      }),
+    }),
   }),
 })
 
-export const { useMakeStepMutation, useGetStepsQuery } = stepsApi
+export const { useMakeStepMutation, useGetStepsQuery, useSkipStepMutation } =
+  stepsApi

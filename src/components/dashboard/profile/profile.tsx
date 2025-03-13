@@ -7,7 +7,6 @@ import {
   additionalInfoInt,
   useEditAdditionalInfoMutation,
   useGetAssetsQuery,
-  useGetUserPortsQuery,
 } from '../../../lib/api/user/userEndPoints'
 import CustomButton from '../../common/button/button'
 import CustomImage from '../../common/image/customImage'
@@ -21,7 +20,6 @@ interface props {
 }
 
 const Profile: FC<props> = ({ additionalData }): ReactElement => {
-  const { data, refetch: refetchPort } = useGetUserPortsQuery()
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const {
     data: assetsData,
@@ -30,9 +28,8 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
   } = useGetAssetsQuery()
 
   useEffect(() => {
-    refetchPort()
     refetch()
-  }, [refetchPort, refetch])
+  }, [refetch])
 
   const handleCancel = () => {
     setIsVisible(false)
@@ -144,36 +141,6 @@ const Profile: FC<props> = ({ additionalData }): ReactElement => {
                 {additionalData?.customerTimezone}{' '}
               </p>
             </div>
-          </div>
-        </div>
-        <div className='border mt-8 border-gray-300  dark:border-gray-600 rounded-2xl'>
-          <h1 className=' text-xl  text-[#C1CF16] font-bold p-5 bg-[#1C2834] rounded-t-2xl '>
-            Device
-          </h1>
-          <div className='border-t-[1px] border-gray-300  dark:border-gray-600 ' />
-          <div className=' p-5 flex 3xl:flex-row  2xl:flex-row  xl:flex-col lg:flex-col md:flex-col lg:gap-10'>
-            <section>
-              <div>
-                <p className='  flex  flex-row items-center'>
-                  <span className='text-black dark:text-white font-bold w-[150px] '>
-                    Mqtt host :{' '}
-                  </span>
-                  <span>{data?.data[0]?.port}</span>
-                </p>
-                <p className='  flex  flex-row items-center mt-5'>
-                  <span className='text-black dark:text-white font-bold w-[150px] '>
-                    Mqtt port :{' '}
-                  </span>
-                  <span>{data?.data[0]?.mqttPort}</span>
-                </p>
-                <p className='  flex  flex-row items-center mt-5'>
-                  <span className='text-black dark:text-white font-bold w-[150px] '>
-                    Mqtt Username :{' '}
-                  </span>
-                  <span>{data?.data[0]?.mqttUsername}</span>
-                </p>
-              </div>
-            </section>
           </div>
         </div>
         <div className='mt-8 border border-gray-300  dark:border-gray-600 rounded-2xl'>
