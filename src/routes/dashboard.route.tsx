@@ -84,9 +84,8 @@ export const DashboardRoutes: FC = (): ReactElement => {
       const hasIncompleteRedexSteps =
         !redexSteps?.data?.length ||
         (redexSteps.data.length > 0 &&
-          (redexSteps.data[0].status === false ||
-            redexSteps.data[0]?.hasSkipped === false))
-
+          redexSteps.data[0].status === false &&
+          redexSteps.data[0]?.hasSkipped === false)
       if (hasIncompleteRedexSteps) {
         return '/redexsteps'
       }
