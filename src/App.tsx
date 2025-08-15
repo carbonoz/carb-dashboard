@@ -8,6 +8,11 @@ import VerifyResetPassword from './components/auth/verifyresetPassword'
 import ChoosePartnersTypeForm from './components/firststep/choosetype'
 import ErrorPage from './components/notfound/ErrorPage'
 import UserSteps from './components/steps/steps'
+
+import SubscriptionPlan from './components/payment/SubscriptionPlan'
+import PayPalPayment from './components/payment/paypal.payment'
+import PaymentSuccess from './components/payment/PaymentSuccess'
+import PaymentCancel from './components/payment/PaymentCancel'
 import SystemUserSteps from './components/systemSteps/systemSteps'
 import { AdminDashboardRoutes } from './routes/admin.dashboard'
 import PrivateDashboard from './routes/dashboard.route'
@@ -26,6 +31,10 @@ function App() {
       <Route path='/verify-email' element={<VerifyEmail />} />
       <Route path='/resetPassword' element={<VerifyResetPassword />} />
       <Route path='/password-reset' element={<ResetPassword />} />
+      <Route path='/subscription' element={<SubscriptionPlan />} />
+      <Route path='/payment/paypal' element={<PayPalPayment />} />
+      <Route path='/payment/success' element={<PaymentSuccess />} />
+      <Route path='/payment/cancel' element={<PaymentCancel />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   )

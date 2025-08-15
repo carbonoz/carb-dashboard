@@ -17,6 +17,7 @@ const Logs: FC = () => {
   useEffect(() => {
     refetch()
   }, [refetch])
+
   return (
     <div>
       <h1 className=' text-xl mb-5 text-[#C1CF16] font-bold'>Logs list</h1>

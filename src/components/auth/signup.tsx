@@ -34,7 +34,8 @@ const Signup: FC = (): ReactElement => {
     if (res.data) {
       if (res.data.token) {
         setToLocal('token', res.data.token)
-        navigate('/onboarding')
+        // navigate('/onboarding')
+        navigate('/payment')
       } else {
         Notify({
           message: 'Success',

@@ -30,7 +30,8 @@ const Login: FC = (): ReactElement => {
         if (res.data.user.role === ERoles.ADMIN) {
           navigate('/admin')
         } else {
-          navigate('/ds')
+          // navigate('/ds')
+          navigate('/subscription')
         }
       } else {
         Notify({

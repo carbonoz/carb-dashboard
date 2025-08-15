@@ -8,6 +8,7 @@ import Analytics from '../components/dashboard/analytics/analytics'
 import EnergyChart from '../components/dashboard/charts/energyChart'
 import Profile from '../components/dashboard/profile/profile'
 import Settings from '../components/dashboard/settings/settings'
+import PaymentHistory from '../components/payment/PaymentHistory'
 import NotFound from '../components/notfound/notFound'
 import { EPartner } from '../config/constant'
 import { useGetPartnersQuery } from '../lib/api/partners/partnersEndPoints'
@@ -160,6 +161,7 @@ export const DashboardRoutes: FC = (): ReactElement => {
                 }
               />
               <Route path='/charts' element={<EnergyChart />} />
+              <Route path='/payments' element={<PaymentHistory />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </ContentWrapper>

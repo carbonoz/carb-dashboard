@@ -57,6 +57,7 @@ export const baseAPI = createApi({
     'Users',
     'Logs',
     'Redex-Info',
+    'Payment',
   ] as const,
   endpoints: () => ({}),
 })

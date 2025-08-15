@@ -5,6 +5,7 @@ import { FaChartPie } from 'react-icons/fa'
 import { FiUser } from 'react-icons/fi'
 import { GoSun } from 'react-icons/go'
 import { IoHomeOutline } from 'react-icons/io5'
+import { MdOutlinePayment } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMatch, useNavigate } from 'react-router-dom'
 import Logo from '../../../assets/1.jpg'
@@ -131,6 +132,12 @@ const Sidebar: FC<SideBarProps> = ({
           icon={<FaChartPie size={30} />}
           text='Charts'
           url='/ds/charts'
+          setDrawerVisible={setDrawerVisible}
+        />
+        <SidebarItem
+          icon={<MdOutlinePayment size={30} />}
+          text='Payments'
+          url='/ds/payments'
           setDrawerVisible={setDrawerVisible}
         />
       </div>
